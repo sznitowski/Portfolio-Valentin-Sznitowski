@@ -14,9 +14,9 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { label: "Soluciones", href: "/#soluciones" },
-  { label: "Proyecto", href: "/#proyecto" },
+  { label: "Servicios", href: "/#servicios" },
   { label: "Proceso", href: "/#proceso" },
-  { label: "Capacidades", href: "/#capacidades" },
+  { label: "Tecnologías", href: "/#tecnologias" },
   { label: "Contacto", href: "/#contacto" },
 ];
 
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
-          ? "bg-[#0A0B0D]/85 backdrop-blur-md border-b border-[#242830]/80 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+          ? "bg-[#0B0F17]/90 backdrop-blur-md border-b border-[#1E293B]/80 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-4 sm:py-5 border-b border-transparent"
       }`}
     >
@@ -63,29 +63,29 @@ export const Navbar: React.FC = () => {
         {/* Brand / Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 text-[#F3F4F6] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] rounded-md px-1 py-0.5"
+          className="flex items-center gap-2.5 text-[#F8FAFC] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] rounded-md px-1 py-0.5"
           aria-label="Valentín Sznitowski - Inicio"
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1A1D22] border border-[#242830] text-[#D97706] font-bold text-xs tracking-wider group-hover:border-[#D97706]/40 transition-colors">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#131B2A] border border-[#1E293B] text-[#60A5FA] font-bold text-xs tracking-wider group-hover:border-[#3B82F6]/50 transition-colors">
             VS
           </span>
           <div className="flex flex-col">
-            <span className="font-semibold text-sm sm:text-base tracking-tight text-[#F3F4F6] group-hover:text-white transition-colors">
+            <span className="font-semibold text-sm sm:text-base tracking-tight text-[#F8FAFC] group-hover:text-white transition-colors">
               {businessData.name}
             </span>
-            <span className="text-[10px] text-[#9CA3AF] tracking-wide -mt-0.5 hidden sm:block">
-              Soluciones Digitales
+            <span className="text-[10px] text-[#94A3B8] tracking-wide -mt-0.5 hidden sm:block">
+              Software & Soluciones Web
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-[#121417]/70 border border-[#242830]/60 backdrop-blur-sm rounded-full px-4 py-1.5 shadow-inner" aria-label="Navegación principal">
+        <nav className="hidden md:flex items-center gap-1 bg-[#111827]/70 border border-[#1E293B]/60 backdrop-blur-sm rounded-full px-4 py-1.5 shadow-inner" aria-label="Navegación principal">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs lg:text-sm text-[#9CA3AF] hover:text-[#F3F4F6] px-3 py-1.5 rounded-full transition-colors duration-150 font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D97706]"
+              className="text-xs lg:text-sm text-[#94A3B8] hover:text-[#F8FAFC] px-3 py-1.5 rounded-full transition-colors duration-150 font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#3B82F6]"
             >
               {link.label}
             </Link>
@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#121417] border border-[#242830] text-[#F3F4F6] hover:bg-[#1A1D22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
+            className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#111827] border border-[#1E293B] text-[#F8FAFC] hover:bg-[#1E293B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú de navegación"}
             aria-expanded={isOpen}
           >
@@ -131,19 +131,19 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[61px] bg-[#0A0B0D]/95 backdrop-blur-xl border-b border-[#242830] px-4 py-6 shadow-2xl transition-all">
+        <div className="md:hidden fixed inset-x-0 top-[61px] bg-[#0B0F17]/95 backdrop-blur-xl border-b border-[#1E293B] px-4 py-6 shadow-2xl transition-all">
           <nav className="flex flex-col gap-2" aria-label="Navegación móvil">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-medium text-[#F3F4F6] hover:text-[#D97706] hover:bg-[#121417] px-4 py-3 rounded-lg border border-transparent hover:border-[#242830] transition-colors"
+                className="text-base font-medium text-[#F8FAFC] hover:text-[#60A5FA] hover:bg-[#111827] px-4 py-3 rounded-lg border border-transparent hover:border-[#1E293B] transition-colors"
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4 mt-2 border-t border-[#242830] flex flex-col gap-3">
+            <div className="pt-4 mt-2 border-t border-[#1E293B] flex flex-col gap-3">
               <Button
                 href={businessData.whatsapp.url}
                 isExternal

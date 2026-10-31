@@ -13,7 +13,7 @@ Portfolio profesional orientado a la captación de clientes comerciales (comerci
 ## Proyecto Principal Destacado
 
 - **Custom Commerce:** Plataforma comercial con catálogo dinámico, personalización de medidas y cotización a WhatsApp.  
-  Demo pública: [https://custom-commerce.netlify.app](https://custom-commerce.netlify.app)
+  Demo pública: Configurable vía `NEXT_PUBLIC_CUSTOM_COMMERCE_DEMO_URL` (fuente canónica: `src/data/business.ts`).
 
 ## Comandos de Desarrollo
 

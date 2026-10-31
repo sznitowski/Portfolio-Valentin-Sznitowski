@@ -1,51 +1,76 @@
 import React from "react";
 import { techCapabilities } from "@/data/tech";
 import { Container } from "@/components/ui/Container";
-import { Shield } from "lucide-react";
+import { Server, Code, Database, Cpu } from "lucide-react";
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  "Backend y Servidores": <Server className="w-4 h-4 text-blue-400" />,
+  "Frontend e Interfaces": <Code className="w-4 h-4 text-cyan-400" />,
+  "Bases de Datos y Persistencia": <Database className="w-4 h-4 text-emerald-400" />,
+  "Infraestructura e Integración": <Cpu className="w-4 h-4 text-indigo-400" />,
+};
 
 export const TechSection: React.FC = () => {
   return (
-    <section id="capacidades" className="py-16 sm:py-20 border-b border-[#242830]/60 relative">
+    <section id="tecnologias" className="py-20 sm:py-28 border-b border-[#1E293B]/60 relative">
       <Container>
-        <div className="rounded-xl border border-[#242830] bg-[#121417]/80 p-6 sm:p-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-[#242830]">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-mono-tech uppercase tracking-wider text-[#D97706] font-semibold">
-                <Shield className="w-3.5 h-3.5" />
-                <span>Respaldo Técnico</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F3F4F6] mt-1.5">
-                Tecnología moderna como garantía de velocidad y estabilidad
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-[#9CA3AF] max-w-md leading-relaxed">
-              La tecnología está al servicio del negocio. Selecciono herramientas sólidas para que tu web cargue al instante, no se caiga y sea fácil de mantener.
-            </p>
+        {/* Encabezado Editorial */}
+        <div className="max-w-3xl mb-14 sm:mb-18">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono-tech uppercase tracking-wider text-[#60A5FA] font-semibold">
+              Herramientas de Trabajo
+            </span>
+            <span className="text-slate-600">•</span>
+            <span className="text-xs text-slate-400">Solvencia técnica verificada</span>
           </div>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mt-2">
+            Tecnologías para construir y mantener soluciones
+          </h2>
+          <p className="text-sm sm:text-base text-[#94A3B8] mt-3 leading-relaxed">
+            La tecnología está al servicio de la solución. Selecciono herramientas estándar, estables y bien documentadas para que tu sistema cargue rápido, sea seguro y no dependa de fórmulas propietarias cerradas.
+          </p>
+        </div>
 
-          {/* Grilla sobria de áreas */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
-            {techCapabilities.map((area) => (
-              <div key={area.area} className="space-y-3">
-                <span className="text-[11px] font-mono-tech text-[#9CA3AF] uppercase tracking-wider block">
-                  {area.area}
-                </span>
-                <p className="text-xs text-[#9CA3AF] leading-relaxed">
-                  {area.description}
+        {/* Grilla de 4 Categorías Tecnológicas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {techCapabilities.map((cat) => (
+            <div
+              key={cat.category}
+              className="rounded-2xl border border-[#1E293B] bg-[#111827] p-6 flex flex-col justify-between transition-all duration-200 hover:border-slate-700 hover:bg-[#131B2A] space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
+                  <div className="flex items-center gap-2">
+                    {categoryIcons[cat.category]}
+                    <span className="text-xs font-bold text-white tracking-tight">
+                      {cat.category}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {cat.description}
                 </p>
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {area.technologies.map((tech) => (
+
+                {/* Chips de Tecnologías */}
+                <div className="pt-2 flex flex-wrap gap-1.5">
+                  {cat.technologies.map((tech) => (
                     <span
-                      key={tech}
-                      className="text-[11px] font-mono-tech bg-[#1A1D22] border border-[#242830] text-[#F3F4F6] px-2.5 py-1 rounded-md"
+                      key={tech.name}
+                      title={tech.description}
+                      className="text-xs font-mono-tech bg-[#0B0F17] border border-slate-800 text-slate-200 px-2.5 py-1 rounded-lg hover:border-slate-600 transition-colors"
                     >
-                      {tech}
+                      {tech.name}
                     </span>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="pt-3 border-t border-[#1E293B]/80 text-[11px] text-slate-500 font-mono-tech">
+                {cat.badge}
+              </div>
+            </div>
+          ))}
         </div>
       </Container>
     </section>

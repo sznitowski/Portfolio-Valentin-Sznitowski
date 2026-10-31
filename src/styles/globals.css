@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0a0b0d;
-  --bg-surface: #121417;
-  --bg-surface-elevated: #1a1d22;
-  --border-subtle: #242830;
-  --border-hover: #3a404a;
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-  --accent-primary: #d97706;
-  --accent-hover: #f59e0b;
-  --accent-subtle: rgba(217, 119, 6, 0.12);
-  --accent-glow: rgba(217, 119, 6, 0.25);
+  --bg-primary: #0b0f17;
+  --bg-surface: #111827;
+  --bg-surface-elevated: #1e293b;
+  --border-subtle: #1e293b;
+  --border-hover: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-primary: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-subtle: rgba(59, 130, 246, 0.12);
+  --accent-glow: rgba(59, 130, 246, 0.25);
   --status-live: #10b981;
   --status-live-subtle: rgba(16, 185, 129, 0.15);
 }
@@ -57,7 +57,7 @@ body {
 /* Selection */
 ::selection {
   background-color: var(--accent-primary);
-  color: #0a0b0d;
+  color: #ffffff;
 }
 
 /* Accessible Focus Ring */
@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
   .surface-card:hover {
     border-color: var(--border-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px -3px rgba(217, 119, 6, 0.08);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px -3px rgba(59, 130, 246, 0.12);
   }
 }
 

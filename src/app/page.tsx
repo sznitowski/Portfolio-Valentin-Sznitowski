@@ -1,7 +1,7 @@
 import React from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProblemSolutionSection } from "@/components/sections/ProblemSolutionSection";
-import { ShowcaseSection } from "@/components/sections/ShowcaseSection";
+import { SolutionsSection } from "@/components/sections/SolutionsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { TechSection } from "@/components/sections/TechSection";
@@ -12,7 +12,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <ProblemSolutionSection />
-      <ShowcaseSection />
+      <SolutionsSection />
       <ServicesSection />
       <ProcessSection />
       <TechSection />

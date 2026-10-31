@@ -18,13 +18,13 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const variants = {
     default:
-      "bg-[#1A1D22] text-[#9CA3AF] border border-[#242830]",
+      "bg-[#131B2A] text-[#94A3B8] border border-[#1E293B]",
     live:
       "bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/25",
     accent:
-      "bg-[#D97706]/10 text-[#F59E0B] border border-[#D97706]/25",
+      "bg-[#3B82F6]/10 text-[#60A5FA] border border-[#3B82F6]/25",
     tech:
-      "bg-[#121417] text-[#9CA3AF] border border-[#242830] font-mono-tech text-[11px]",
+      "bg-[#111827] text-[#94A3B8] border border-[#1E293B] font-mono-tech text-[11px]",
   };
 
   return (

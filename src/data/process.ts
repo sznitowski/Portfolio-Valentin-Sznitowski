@@ -1,6 +1,6 @@
 /**
- * Working methodology in 5 clear, low-risk steps.
- * Designed to convey order, transparency, and personal accompaniment.
+ * Working methodology in 4 clear, predictable steps.
+ * Designed to convey order, low risk, and transparent communication.
  */
 
 export interface ProcessStep {
@@ -14,42 +14,34 @@ export interface ProcessStep {
 export const processData: ProcessStep[] = [
   {
     step: "01",
-    title: "Entendemos tu forma de vender",
-    subtitle: "Conversación inicial sin compromiso",
+    title: "Conversación inicial y diagnóstico",
+    subtitle: "Relevamiento sin compromiso",
     description:
-      "Charlamos sobre cómo opera tu negocio hoy: qué canales usás para vender, qué consultas repetitivas te quitan tiempo y qué necesita ver tu cliente antes de comprar.",
-    keyOutcome: "Claridad sobre el objetivo comercial y el dolor prioritario a resolver.",
+      "Charlamos sobre cómo opera tu negocio hoy: qué consultas repetitivas te quitan tiempo, qué procesos manuales querés automatizar o qué problemas tiene tu sistema actual.",
+    keyOutcome: "Entendimiento compartido del problema prioritario y de la solución adecuada.",
   },
   {
     step: "02",
-    title: "Definimos qué hace falta",
-    subtitle: "Propuesta concisa y presupuesto cerrado",
+    title: "Propuesta con alcance y presupuesto cerrado",
+    subtitle: "Claridad total desde el primer día",
     description:
-      "Acordamos un alcance concreto: qué pantallas, qué funciones y en qué plazos. Sabés desde el primer día qué vas a recibir y cuánto va a costar, sin sorpresas.",
-    keyOutcome: "Plan de trabajo claro con entregables y tiempos definidos.",
+      "Definimos qué pantallas y funciones se van a construir o mejorar, los plazos de entrega y el costo exacto. Sabés qué vas a recibir y cuándo, sin costos ocultos.",
+    keyOutcome: "Plan de trabajo definido con etapas claras y entregables medibles.",
   },
   {
     step: "03",
-    title: "Construyo una primera versión",
-    subtitle: "Pruebas reales en una demo funcional",
+    title: "Desarrollo y pruebas intermedias",
+    subtitle: "Demos navegables durante el proceso",
     description:
-      "Desarrollo la plataforma y te entrego un enlace privado para que la pruebes desde tu celular y computadora con productos y fotos reales de tu negocio.",
-    keyOutcome: "Plataforma funcional navegable y probada con tu propio equipo.",
+      "Construyo la solución y te comparto accesos para que puedas probarla desde tu celular y computadora con datos y casos reales antes de la entrega final.",
+    keyOutcome: "Validación temprana con tu propio equipo para asegurar que resuelve la necesidad.",
   },
   {
     step: "04",
-    title: "Ajustamos y publicamos",
-    subtitle: "Puesta en marcha en tu propio dominio",
+    title: "Puesta en marcha y soporte continuo",
+    subtitle: "Tu herramienta lista para operar",
     description:
-      "Ajustamos los últimos detalles, conectamos tu dominio web con certificados de seguridad SSL y te muestro cómo actualizar productos o precios en minutos.",
-    keyOutcome: "Web publicada en producción, rápida y lista para recibir clientes.",
-  },
-  {
-    step: "05",
-    title: "Acompañamiento y soporte",
-    subtitle: "Tu herramienta crece con tu negocio",
-    description:
-      "La plataforma es de tu propiedad. Cuando tu negocio lo requiera, podemos incorporar nuevas funciones (pagos online, más personalización o integraciones).",
-    keyOutcome: "Tranquilidad operativa y una base tecnológica propia y escalable.",
+      "Publicamos la solución en tu propio dominio y servidor seguro, te capacito en su uso y quedo a disposición para mantenimiento, soporte y futuras mejoras.",
+    keyOutcome: "Herramienta en producción, de tu propiedad y con acompañamiento técnico continuo.",
   },
 ];

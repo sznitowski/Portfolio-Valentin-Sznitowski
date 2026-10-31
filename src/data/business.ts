@@ -24,11 +24,19 @@ export interface BusinessConfig {
   };
   urls: {
     portfolio: string;
-    customCommerceDemo: string;
+    customCommerceDemo: string | null;
     github: string;
     linkedin: string;
   };
 }
+
+/**
+ * Fuente canónica única para la demo pública de Custom Commerce.
+ * Si no está definida en NEXT_PUBLIC_CUSTOM_COMMERCE_DEMO_URL o verificada con el negocio Taller Roble & Veta,
+ * se fija en null para evitar redirecciones a sitios ajenos (como Commerce.js).
+ */
+export const CUSTOM_COMMERCE_DEMO_URL: string | null =
+  process.env.NEXT_PUBLIC_CUSTOM_COMMERCE_DEMO_URL || null;
 
 const envWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 const isWhatsAppConfigured = Boolean(envWhatsapp && envWhatsapp.length > 8 && !envWhatsapp.includes("0000000"));
@@ -40,10 +48,10 @@ const defaultWhatsAppMessage =
 export const businessData: BusinessConfig = {
   name: "Valentín Sznitowski",
   shortName: "Valentín",
-  role: "Desarrollo de Soluciones Digitales para Negocios",
-  headline: "Desarrollo plataformas web y catálogos a medida para negocios que necesitan vender mejor.",
+  role: "Desarrollo de Software & Soluciones Web para Negocios",
+  headline: "Desarrollo software y soluciones web para negocios que necesitan vender, automatizar y operar mejor.",
   subheadline:
-    "Soluciones digitales pensadas para comercios, talleres y pymes: catálogos interactivos, cotizaciones directas a WhatsApp y paneles de gestión propios. Sin comisiones por venta ni ataduras a plantillas rígidas.",
+    "Sistemas web a medida, plataformas comerciales, automatización de tareas y modernización de aplicaciones existentes. Herramientas prácticas para resolver problemas operativos reales sin complicaciones técnicas.",
   location: "Argentina (Disponible para proyectos en todo el país y remoto)",
   email: "vsznitowski@gmail.com",
   whatsapp: {
@@ -56,8 +64,9 @@ export const businessData: BusinessConfig = {
   },
   urls: {
     portfolio: "https://portfolio-valentin-sznitowski.netlify.app",
-    customCommerceDemo: "https://custom-commerce.netlify.app",
+    customCommerceDemo: CUSTOM_COMMERCE_DEMO_URL,
     github: "https://github.com/sznitowski",
     linkedin: "https://www.linkedin.com/in/valent%C3%ADn-sznitowski/",
   },
 };
+

@@ -8,31 +8,31 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#242830] bg-[#0A0B0D] pt-16 pb-12 mt-20">
+    <footer className="border-t border-[#1E293B] bg-[#0B0F17] pt-16 pb-12 mt-20">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#242830]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#1E293B]">
           {/* Columna Principal */}
           <div className="md:col-span-5 flex flex-col gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-[#F3F4F6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] rounded-md w-fit"
+              className="inline-flex items-center gap-2 text-[#F8FAFC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] rounded-md w-fit"
             >
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1A1D22] border border-[#242830] text-[#D97706] font-bold text-xs tracking-wider">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#131B2A] border border-[#1E293B] text-[#60A5FA] font-bold text-xs tracking-wider">
                 VS
               </span>
-              <span className="font-semibold text-base text-[#F3F4F6]">
+              <span className="font-semibold text-base text-[#F8FAFC]">
                 {businessData.name}
               </span>
             </Link>
-            <p className="text-sm text-[#9CA3AF] max-w-sm leading-relaxed">
-              Desarrollo de soluciones digitales y plataformas comerciales diseñadas para resolver necesidades reales de negocio, sin ataduras a plantillas rígidas ni comisiones abusivas.
+            <p className="text-sm text-[#94A3B8] max-w-sm leading-relaxed">
+              Desarrollo de software y soluciones web para negocios: plataformas comerciales, automatizaciones, integraciones y modernización de sistemas existentes.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
                 href={businessData.urls.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#121417] border border-[#242830] text-[#9CA3AF] hover:text-[#F3F4F6] hover:border-[#3A404A] transition-colors"
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#111827] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#334155] transition-colors"
                 aria-label="Perfil de GitHub de Valentín Sznitowski"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
                 href={businessData.urls.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#121417] border border-[#242830] text-[#9CA3AF] hover:text-[#F3F4F6] hover:border-[#3A404A] transition-colors"
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#111827] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#334155] transition-colors"
                 aria-label="Perfil de LinkedIn de Valentín Sznitowski"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -55,33 +55,38 @@ export const Footer: React.FC = () => {
 
           {/* Enlaces de Navegación */}
           <div className="md:col-span-3 flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#F3F4F6]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#F8FAFC]">
               Navegación
             </span>
-            <ul className="flex flex-col gap-2 text-sm text-[#9CA3AF]">
+            <ul className="flex flex-col gap-2 text-sm text-[#94A3B8]">
               <li>
-                <Link href="/#soluciones" className="hover:text-[#F3F4F6] transition-colors">
-                  Qué resuelvo
+                <Link href="/#soluciones" className="hover:text-[#F8FAFC] transition-colors">
+                  Soluciones & Demos
                 </Link>
               </li>
               <li>
-                <Link href="/#proyecto" className="hover:text-[#F3F4F6] transition-colors">
-                  Custom Commerce (Showcase)
+                <Link href="/#servicios" className="hover:text-[#F8FAFC] transition-colors">
+                  Servicios
                 </Link>
               </li>
               <li>
-                <Link href="/proyectos/custom-commerce" className="hover:text-[#D97706] transition-colors">
-                  Case Study Custom Commerce
-                </Link>
-              </li>
-              <li>
-                <Link href="/#proceso" className="hover:text-[#F3F4F6] transition-colors">
+                <Link href="/#proceso" className="hover:text-[#F8FAFC] transition-colors">
                   Cómo trabajo
                 </Link>
               </li>
               <li>
-                <Link href="/#capacidades" className="hover:text-[#F3F4F6] transition-colors">
-                  Respaldo técnico
+                <Link href="/#tecnologias" className="hover:text-[#F8FAFC] transition-colors">
+                  Tecnologías
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contacto" className="hover:text-[#F8FAFC] transition-colors">
+                  Contacto
+                </Link>
+              </li>
+              <li>
+                <Link href="/soluciones" className="text-xs text-[#60A5FA] hover:underline pt-1">
+                  Ver detalle de soluciones →
                 </Link>
               </li>
             </ul>
@@ -89,10 +94,10 @@ export const Footer: React.FC = () => {
 
           {/* Contacto Directo */}
           <div className="md:col-span-4 flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#F3F4F6]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#F8FAFC]">
               Contacto Comercial
             </span>
-            <p className="text-sm text-[#9CA3AF]">
+            <p className="text-sm text-[#94A3B8]">
               ¿Tenés un proyecto o querés consultar la viabilidad de una solución para tu negocio?
             </p>
             <div className="flex flex-col gap-2.5 pt-1">
@@ -100,7 +105,7 @@ export const Footer: React.FC = () => {
                 href={businessData.whatsapp.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-[#F3F4F6] hover:text-[#D97706] transition-colors group"
+                className="inline-flex items-center gap-2 text-sm text-[#F8FAFC] hover:text-[#60A5FA] transition-colors group"
               >
                 <MessageSquare className="w-4 h-4 text-[#10B981]" />
                 <span>Escribime por WhatsApp</span>
@@ -108,9 +113,9 @@ export const Footer: React.FC = () => {
               </a>
               <a
                 href={`mailto:${businessData.email}`}
-                className="inline-flex items-center gap-2 text-sm text-[#F3F4F6] hover:text-[#D97706] transition-colors group"
+                className="inline-flex items-center gap-2 text-sm text-[#F8FAFC] hover:text-[#60A5FA] transition-colors group"
               >
-                <Mail className="w-4 h-4 text-[#D97706]" />
+                <Mail className="w-4 h-4 text-[#60A5FA]" />
                 <span>{businessData.email}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
               </a>
@@ -122,14 +127,23 @@ export const Footer: React.FC = () => {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280]">
           <p>© {currentYear} {businessData.name}. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4">
-            <a
-              href={businessData.urls.customCommerceDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#9CA3AF] transition-colors flex items-center gap-1"
-            >
-              Demo Taller Roble & Veta <ArrowUpRight className="w-3 h-3" />
-            </a>
+            {businessData.urls.customCommerceDemo ? (
+              <a
+                href={businessData.urls.customCommerceDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#9CA3AF] transition-colors flex items-center gap-1"
+              >
+                Demo Taller Roble & Veta <ArrowUpRight className="w-3 h-3" />
+              </a>
+            ) : (
+              <Link
+                href="/proyectos/custom-commerce"
+                className="hover:text-[#9CA3AF] transition-colors flex items-center gap-1"
+              >
+                Caso Custom Commerce <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            )}
           </div>
         </div>
       </Container>

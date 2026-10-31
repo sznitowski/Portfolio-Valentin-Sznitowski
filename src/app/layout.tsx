@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { PortfolioChrome } from "@/components/layout/PortfolioChrome";
 import { businessData } from "@/data/business";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -27,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0A0B0D",
+  themeColor: "#0B0F17",
   width: "device-width",
   initialScale: 1,
 };
@@ -80,12 +79,8 @@ export default function RootLayout({
       lang="es"
       className={`${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-[100dvh] flex flex-col bg-[#0A0B0D] text-[#F3F4F6] selection:bg-[#D97706] selection:text-[#0A0B0D]">
-        <Navbar />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+      <body className="min-h-[100dvh] flex flex-col bg-[#0B0F17] text-[#F8FAFC] selection:bg-[#3B82F6] selection:text-white">
+        <PortfolioChrome>{children}</PortfolioChrome>
       </body>
     </html>
   );

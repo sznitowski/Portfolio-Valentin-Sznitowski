@@ -8,10 +8,10 @@ import { HeroVisual } from "@/components/sections/HeroVisual";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden border-b border-[#242830]/60">
+    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden border-b border-[#1E293B]/60">
       {/* Background subtle radial gradient */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[480px] bg-gradient-to-tr from-[#D97706]/10 to-transparent blur-3xl pointer-events-none -z-10"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[480px] bg-gradient-to-tr from-[#3B82F6]/15 via-[#6366F1]/10 to-transparent blur-3xl pointer-events-none -z-10"
         aria-hidden="true"
       />
 
@@ -24,29 +24,29 @@ export const HeroSection: React.FC = () => {
             </Badge>
           </div>
 
-          {/* Headline comercial contundente */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F3F4F6] leading-[1.12]">
-            Desarrollo plataformas web y catálogos a medida para negocios que{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D97706] via-[#F59E0B] to-[#FBBF24]">
-              necesitan vender mejor.
+          {/* Headline comercial amplio */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F8FAFC] leading-[1.12]">
+            Desarrollo software y soluciones web para negocios que{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] via-[#3B82F6] to-[#818CF8]">
+              necesitan vender, automatizar y operar mejor.
             </span>
           </h1>
 
           {/* Subheadline comercial enfocado al cliente */}
-          <p className="text-base sm:text-xl text-[#9CA3AF] max-w-2xl mx-auto leading-relaxed font-normal">
-            Soluciones digitales pensadas para comercios, talleres y pymes: productos con opciones a medida, cotizaciones directas a WhatsApp y paneles de gestión propios. Sin comisiones por venta ni ataduras a plantillas rígidas.
+          <p className="text-base sm:text-lg lg:text-xl text-[#94A3B8] max-w-2xl mx-auto leading-relaxed font-normal">
+            Construyo software a medida, automatizo procesos repetitivos, conecto sistemas mediante integraciones y realizo mantenimiento o modernización de aplicaciones existentes para que tu negocio opere con mayor agilidad y autonomía.
           </p>
 
           {/* CTAs duales */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto pt-2">
             <Button
-              href="#proyecto"
+              href="#soluciones"
               size="lg"
               variant="primary"
               icon={<ArrowDown className="w-4 h-4" />}
               className="w-full sm:w-auto font-semibold"
             >
-              Ver proyecto destacado
+              Ver soluciones y demos
             </Button>
             <Button
               href={businessData.whatsapp.url}
@@ -62,20 +62,20 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Sellos de confianza */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-[#9CA3AF]">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-[#94A3B8]">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-              Casos reales en producción
+              Demos y prototipos navegables
             </span>
-            <span className="hidden sm:inline text-[#242830]">•</span>
+            <span className="hidden sm:inline text-[#1E293B]">•</span>
             <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+              Proyectos nuevos y sistemas existentes
+            </span>
+            <span className="hidden sm:inline text-[#1E293B]">•</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F8FAFC]" />
               Código propio y sin comisiones
-            </span>
-            <span className="hidden sm:inline text-[#242830]">•</span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F3F4F6]" />
-              Atención directa sin intermediarios
             </span>
           </div>
         </div>

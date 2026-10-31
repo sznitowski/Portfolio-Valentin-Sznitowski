@@ -4,57 +4,63 @@ import { Container } from "@/components/ui/Container";
 
 export const ProcessSection: React.FC = () => {
   return (
-    <section id="proceso" className="py-20 sm:py-28 border-b border-[#242830]/60 relative">
+    <section id="proceso" className="py-20 sm:py-28 border-b border-[#1E293B]/60 relative">
       <Container>
-        {/* Encabezado */}
+        {/* Encabezado Editorial */}
         <div className="max-w-3xl mb-14 sm:mb-18">
-          <span className="text-xs font-mono-tech uppercase tracking-wider text-[#D97706] font-semibold">
-            Metodología de Trabajo
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F3F4F6] mt-2">
-            Un proceso claro, predecible y sin sorpresas
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono-tech uppercase tracking-wider text-[#60A5FA] font-semibold">
+              Metodología de Trabajo
+            </span>
+            <span className="text-slate-600">•</span>
+            <span className="text-xs text-slate-400">Paso a paso sin intermediarios</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mt-2">
+            Cómo trabajamos juntos
           </h2>
-          <p className="text-sm sm:text-base text-[#9CA3AF] mt-3 leading-relaxed">
-            De la primera conversación al lanzamiento en producción. Cada etapa tiene objetivos concretos para que siempre sepas en qué estado está tu proyecto.
+          <p className="text-sm sm:text-base text-[#94A3B8] mt-3 leading-relaxed">
+            Tanto si necesitás construir una solución desde cero como mejorar un sistema existente, seguimos un proceso transparente con etapas y entregables claros.
           </p>
         </div>
 
-        {/* Grilla Progresiva Editorial (Evitando timeline vertical genérico) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 4 Pasos Simétricos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {processData.map((step, idx) => (
             <div
               key={step.step}
-              className={`rounded-xl border border-[#242830] bg-[#121417] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:border-[#3A404A] hover:bg-[#15181D] ${
-                idx === 4 ? "md:col-span-2 lg:col-span-2 bg-gradient-to-r from-[#121417] to-[#1A1D22]/80 border-[#D97706]/30" : ""
-              }`}
+              className="rounded-2xl border border-[#1E293B] bg-[#111827] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:border-slate-700 hover:bg-[#131B2A] group"
             >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl sm:text-3xl font-extrabold font-mono-tech text-[#D97706]">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
+                  <span className="text-2xl sm:text-3xl font-extrabold font-mono-tech text-[#60A5FA]">
                     {step.step}
                   </span>
-                  <span className="text-[10px] font-mono-tech uppercase tracking-wider text-[#9CA3AF] bg-[#1A1D22] px-2.5 py-0.5 rounded border border-[#242830]">
-                    Paso {idx + 1} de 5
+                  <span className="text-[10px] font-mono-tech uppercase tracking-wider text-slate-400 bg-[#0B0F17] px-2.5 py-0.5 rounded-full border border-slate-800">
+                    Paso {idx + 1} de 4
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-[#F3F4F6] tracking-tight">
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight group-hover:text-[#60A5FA] transition-colors leading-snug">
                     {step.title}
                   </h3>
-                  <span className="text-xs text-[#D97706] font-medium block mt-0.5">
+                  <span className="text-xs text-[#60A5FA] font-medium block mt-1">
                     {step.subtitle}
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed pt-1">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#242830] flex items-center gap-2 text-xs">
-                <span className="text-[#10B981] font-semibold shrink-0">Entregable:</span>
-                <span className="text-[#F3F4F6] truncate">{step.keyOutcome}</span>
+              <div className="mt-6 pt-4 border-t border-[#1E293B] text-xs space-y-1">
+                <span className="text-[10px] uppercase font-mono-tech text-emerald-400 font-semibold block">
+                  Objetivo concreto:
+                </span>
+                <span className="text-slate-300 font-medium leading-relaxed block">
+                  {step.keyOutcome}
+                </span>
               </div>
             </div>
           ))}

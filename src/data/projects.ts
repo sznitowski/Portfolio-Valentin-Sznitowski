@@ -4,6 +4,7 @@
  * Architecture is designed to easily support additional projects in the future
  * without placeholder cards or "Coming Soon" sections.
  */
+import { businessData } from "./business";
 
 export interface ProjectDetail {
   slug: string;
@@ -35,7 +36,7 @@ export interface ProjectDetail {
       purpose: string;
     }[];
   };
-  demoUrl: string;
+  demoUrl: string | null;
   caseStudyUrl: string;
   status: "live" | "in_development";
 }
@@ -124,7 +125,7 @@ export const projectsData: ProjectDetail[] = [
         },
       ],
     },
-    demoUrl: "https://custom-commerce.netlify.app",
+    demoUrl: businessData.urls.customCommerceDemo,
     caseStudyUrl: "/proyectos/custom-commerce",
     status: "live",
   },

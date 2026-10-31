@@ -25,13 +25,13 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<NonNullable<ButtonBaseProps["variant"]>, string> = {
   primary:
-    "bg-[#D97706] text-[#0A0B0D] font-semibold hover:bg-[#F59E0B] active:bg-[#B45309] shadow-[0_1px_2px_rgba(0,0,0,0.4),0_0_12px_rgba(217,119,6,0.2)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.5),0_0_20px_rgba(245,158,11,0.3)]",
+    "bg-[#3B82F6] text-white font-semibold hover:bg-[#2563EB] active:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(0,0,0,0.4),0_0_16px_rgba(59,130,246,0.35)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.5),0_0_24px_rgba(59,130,246,0.45)]",
   secondary:
-    "bg-[#1A1D22] text-[#F3F4F6] border border-[#242830] hover:border-[#3A404A] hover:bg-[#22262C] active:bg-[#16181C]",
+    "bg-[#131B2A] text-[#F8FAFC] border border-[#1E293B] hover:border-[#334155] hover:bg-[#1E293B] active:bg-[#0F172A]",
   outline:
-    "bg-transparent text-[#F3F4F6] border border-[#242830] hover:border-[#3A404A] hover:bg-[#121417] active:bg-[#0A0B0D]",
+    "bg-transparent text-[#F8FAFC] border border-[#1E293B] hover:border-[#334155] hover:bg-[#111827] active:bg-[#0B0F17]",
   ghost:
-    "bg-transparent text-[#9CA3AF] hover:text-[#F3F4F6] hover:bg-[#1A1D22]/60 active:bg-[#1A1D22]",
+    "bg-transparent text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B]/60 active:bg-[#1E293B]",
 };
 
 const sizeStyles: Record<NonNullable<ButtonBaseProps["size"]>, string> = {
@@ -50,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    "inline-flex items-center justify-center font-medium transition-all duration-200 select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0B0D]";
+    "inline-flex items-center justify-center font-medium transition-all duration-200 select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0F17]";
   const combinedClasses = `${baseClasses} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
   const content = (

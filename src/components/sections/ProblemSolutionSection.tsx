@@ -1,168 +1,136 @@
 import React from "react";
-import { ArrowRight, MessageCircleOff, FileSpreadsheet, Layers, ShoppingBag, Sliders, Cpu } from "lucide-react";
+import {
+  ShoppingBag,
+  Cpu,
+  Wrench,
+  Network,
+  Bot,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
-interface ProblemSolutionItem {
+interface BusinessProblemSolution {
   id: string;
-  problem: {
-    badge: string;
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-  };
-  solution: {
-    badge: string;
-    title: string;
-    description: string;
-    outcome: string;
-    icon: React.ReactNode;
-  };
+  badge: string;
+  need: string;
+  resolution: string;
+  deliverableSummary: string;
+  icon: React.ReactNode;
 }
 
-const items: ProblemSolutionItem[] = [
+const problemsAndSolutions: BusinessProblemSolution[] = [
   {
-    id: "catalogo",
-    problem: {
-      badge: "Situación habitual",
-      title: "Venta informal por mensajes sin catálogo",
-      description:
-        "Enviar fotos sueltas por WhatsApp o Instagram, responder 20 veces al día los mismos precios y perder clientes que no esperan una respuesta manual.",
-      icon: <MessageCircleOff className="w-5 h-5 text-[#EF4444]" />,
-    },
-    solution: {
-      badge: "Solución implementada",
-      title: "Catálogo comercial interactivo y estructurado",
-      description:
-        "Una plataforma web propia donde tus clientes navegan productos, ven descripciones claras, fotos reales y consultan con el pedido ya seleccionado.",
-      outcome: "Menos tiempo respondiendo lo mismo, más conversaciones que terminan en venta.",
-      icon: <ShoppingBag className="w-5 h-5 text-[#10B981]" />,
-    },
+    id: "vender-mejor",
+    badge: "Ventas & Presupuestos",
+    need: "Necesito mostrar productos y vender mejor sin perder horas cotizando",
+    resolution:
+      "Construyo catálogos comerciales interactivos con cotizadores a medida (dimensiones, materiales o acabados) que envían el pedido estructurado directamente a WhatsApp o correo.",
+    deliverableSummary: "Catálogo web propio, cotizador dinámico y pedidos listos para fabricar o entregar.",
+    icon: <ShoppingBag className="w-5 h-5 text-blue-400" />,
   },
   {
-    id: "personalizacion",
-    problem: {
-      badge: "Situación habitual",
-      title: "Productos a medida difíciles de cotizar",
-      description:
-        "Muebles, aberturas o productos artesanales con diferentes medidas, maderas o telas que exigen cálculos manuales largos para pasar un presupuesto estimativo.",
-      icon: <Layers className="w-5 h-5 text-[#EF4444]" />,
-    },
-    solution: {
-      badge: "Solución implementada",
-      title: "Configurador con presupuesto dinámico",
-      description:
-        "Campos personalizados donde el comprador elige largo, ancho, materiales y acabados, obteniendo una cotización transparente antes de contactarte.",
-      outcome: "Recibís consultas con el requerimiento técnico completo y listo para fabricar.",
-      icon: <Sliders className="w-5 h-5 text-[#10B981]" />,
-    },
+    id: "procesos-manuales",
+    badge: "Orden Operativo",
+    need: "Tenemos planillas de cálculo dispersas y procesos manuales",
+    resolution:
+      "Reemplazo planillas desactualizadas y cuadernos por paneles web internos y seguros donde tu equipo carga productos, gestiona estados de pedidos y consulta información en tiempo real.",
+    deliverableSummary: "Panel administrativo a medida, base de datos propia y acceso desde cualquier dispositivo.",
+    icon: <Cpu className="w-5 h-5 text-emerald-400" />,
   },
   {
-    id: "operacion",
-    problem: {
-      badge: "Situación habitual",
-      title: "Procesos manuales y planillas dispersas",
-      description:
-        "Anotar pedidos en cuadernos, planillas de Excel desactualizadas y depender de la memoria del dueño para saber qué cotizaciones quedaron pendientes.",
-      icon: <FileSpreadsheet className="w-5 h-5 text-[#EF4444]" />,
-    },
-    solution: {
-      badge: "Solución implementada",
-      title: "Panel de administración y seguimiento a medida",
-      description:
-        "Un panel privado y sencillo donde cargás productos, actualizás precios en un click y revisás todas las solicitudes recibidas en un solo lugar.",
-      outcome: "Orden operativo y autonomía total para gestionar tu negocio sin depender de nadie.",
-      icon: <Cpu className="w-5 h-5 text-[#10B981]" />,
-    },
+    id: "sistema-existente",
+    badge: "Mantenimiento & Evolución",
+    need: "Nuestro sistema actual necesita mejoras, correcciones o nuevas funciones",
+    resolution:
+      "Si ya contás con una aplicación en producción, te ayudo a mantenerla, corregir errores, modernizar la interfaz y sumar nuevas capacidades sin tener que empezar de cero.",
+    deliverableSummary: "Resolución de bugs, refactorización limpia, optimización de velocidad y nuevas funciones.",
+    icon: <Wrench className="w-5 h-5 text-amber-400" />,
+  },
+  {
+    id: "conectar-sistemas",
+    badge: "Integración de Sistemas",
+    need: "Necesitamos conectar plataformas y evitar la doble carga de datos",
+    resolution:
+      "Desarrollo integraciones seguras entre tus sistemas internos, software de gestión (ERPs), pasarelas de cobro o servicios de terceros para que los datos fluyan de forma automática.",
+    deliverableSummary: "Conexión de APIs, sincronización de información y automatización de transferencias de datos.",
+    icon: <Network className="w-5 h-5 text-cyan-400" />,
+  },
+  {
+    id: "inteligencia-artificial",
+    badge: "Inteligencia Artificial Práctica",
+    need: "Queremos incorporar inteligencia artificial sobre nuestros propios datos",
+    resolution:
+      "Implemento asistentes y herramientas de consulta sobre la documentación o base de datos de tu empresa, permitiendo responder dudas operativas y analizar información de forma segura.",
+    deliverableSummary: "Asistentes internos, búsqueda inteligente sobre archivos y respuestas estructuradas.",
+    icon: <Bot className="w-5 h-5 text-indigo-400" />,
+  },
+  {
+    id: "tareas-repetitivas",
+    badge: "Automatización",
+    need: "Perdemos tiempo en tareas repetitivas que se podrían automatizar",
+    resolution:
+      "Programo procesos automáticos para procesar archivos periódicos, emitir reportes contables, enviar notificaciones o realizar cruces de información sin intervención humana.",
+    deliverableSummary: "Tareas programadas, reportes automáticos, alertas de inconsistencias y jobs desatendidos.",
+    icon: <Clock className="w-5 h-5 text-sky-400" />,
   },
 ];
 
 export const ProblemSolutionSection: React.FC = () => {
   return (
-    <section id="soluciones" className="py-20 sm:py-28 border-b border-[#242830]/60 relative">
+    <section id="problemas" className="py-20 sm:py-28 border-b border-[#1E293B]/60 relative">
       <Container>
-        {/* Encabezado de Sección */}
+        {/* Encabezado Editorial */}
         <div className="max-w-3xl mb-14 sm:mb-18">
-          <span className="text-xs font-mono-tech uppercase tracking-wider text-[#D97706] font-semibold">
-            Impacto Directo
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F3F4F6] mt-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono-tech uppercase tracking-wider text-[#60A5FA] font-semibold">
+              Casos Reales de Aplicación
+            </span>
+            <span className="text-slate-600">•</span>
+            <span className="text-xs text-slate-400">Enfoque centrado en resultados</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mt-2">
             Qué puedo resolver para tu negocio
           </h2>
-          <p className="text-sm sm:text-base text-[#9CA3AF] mt-3 leading-relaxed">
-            No desarrollo sitios web estéticos sin propósito. Construyo herramientas pensadas para eliminar cuellos de botella reales en ventas y operación.
+          <p className="text-sm sm:text-base text-[#94A3B8] mt-3 leading-relaxed">
+            No desarrollo páginas genéricas sin propósito comercial. Identificamos el problema operativo concreto que te quita tiempo o dinero y construimos la herramienta exacta para solucionarlo.
           </p>
         </div>
 
-        {/* Lista de Relaciones Problema -> Solución */}
-        <div className="space-y-6 sm:space-y-8">
-          {items.map((item, idx) => (
+        {/* Grilla limpia de 6 Desafíos y Soluciones */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {problemsAndSolutions.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-[#242830] bg-[#121417] p-5 sm:p-7 transition-all duration-200 hover:border-[#3A404A]"
+              className="rounded-2xl border border-[#1E293B] bg-[#111827] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:border-slate-700 hover:bg-[#131B2A] group"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                {/* Lado Problema (4 columnas) */}
-                <div className="lg:col-span-5 rounded-lg bg-[#0A0B0D] border border-[#242830]/80 p-5 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-mono-tech text-[#EF4444] bg-[#EF4444]/10 px-2 py-0.5 rounded">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" />
-                      {item.problem.badge}
-                    </span>
-                    <span className="text-[11px] text-[#6B7280] font-mono-tech">
-                      0{idx + 1}A
-                    </span>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B0F17] border border-[#1E293B]">
+                    {item.icon}
                   </div>
-                  <div className="flex items-start gap-3 pt-1">
-                    <div className="p-2 rounded-md bg-[#1A1D22] border border-[#242830] shrink-0 mt-0.5">
-                      {item.problem.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-[#F3F4F6]">
-                        {item.problem.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1.5 leading-relaxed">
-                        {item.problem.description}
-                      </p>
-                    </div>
-                  </div>
+                  <span className="text-[11px] font-mono-tech text-slate-400 bg-slate-800/80 px-2.5 py-0.5 rounded-full border border-slate-700">
+                    {item.badge}
+                  </span>
                 </div>
 
-                {/* Flecha Conectora Central (1 columna) */}
-                <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
-                  <div className="w-8 h-8 rounded-full bg-[#1A1D22] border border-[#242830] flex items-center justify-center text-[#D97706]">
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug group-hover:text-[#60A5FA] transition-colors">
+                    &quot;{item.need}&quot;
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2.5">
+                    {item.resolution}
+                  </p>
                 </div>
+              </div>
 
-                {/* Lado Solución (6 columnas) */}
-                <div className="lg:col-span-6 rounded-lg bg-[#1A1D22]/60 border border-[#D97706]/30 p-5 space-y-3 shadow-[0_0_15px_-3px_rgba(217,119,6,0.06)]">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-mono-tech text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded border border-[#10B981]/20">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                      {item.solution.badge}
-                    </span>
-                    <span className="text-[11px] text-[#D97706] font-mono-tech">
-                      0{idx + 1}B
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-3 pt-1">
-                    <div className="p-2 rounded-md bg-[#D97706]/15 border border-[#D97706]/30 shrink-0 mt-0.5">
-                      {item.solution.icon}
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="text-base font-semibold text-[#F3F4F6]">
-                        {item.solution.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed">
-                        {item.solution.description}
-                      </p>
-                      <div className="pt-2 border-t border-[#242830]/60 flex items-center gap-2 text-xs text-[#10B981] font-medium">
-                        <span>Resultado:</span>
-                        <span className="text-[#F3F4F6] font-normal">{item.solution.outcome}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="pt-5 mt-5 border-t border-[#1E293B] text-xs text-slate-400">
+                <span className="text-[10px] uppercase font-mono-tech text-slate-500 font-semibold block mb-1">
+                  Resultado tangible:
+                </span>
+                <span className="text-slate-300 font-medium leading-relaxed block">
+                  {item.deliverableSummary}
+                </span>
               </div>
             </div>
           ))}
