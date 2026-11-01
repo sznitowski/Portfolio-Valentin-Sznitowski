@@ -37,13 +37,13 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  const hasUrl = Boolean(process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL);
-  const hasKey = Boolean(process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY);
-  const urlPrefix = (process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL || "").slice(0, 16);
+  const supabaseKeys = Object.keys(process.env).filter(k => k.toLowerCase().includes("supabase") || k.toLowerCase().includes("storage"));
+  const hasUrl = Boolean(process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const hasKey = Boolean(process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   return NextResponse.json({
     status: "ok",
+    detected_keys: supabaseKeys,
     has_supabase_url: hasUrl,
     has_supabase_anon_key: hasKey,
-    supabase_url_domain: urlPrefix ? `${urlPrefix}...` : "not_set",
   });
 }
