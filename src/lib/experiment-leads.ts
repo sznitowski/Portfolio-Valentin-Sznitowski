@@ -68,18 +68,23 @@ export async function processLeadSubmission(
   const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (supabaseUrl && supabaseKey) {
-    const cleanUrl = supabaseUrl.replace(/\/$/, "");
+    let rawUrl = supabaseUrl.trim();
+    if (rawUrl.startsWith("SUPABASE_URL=")) {
+      rawUrl = rawUrl.replace(/^SUPABASE_URL=/, "").trim();
+    }
+    const cleanUrl = rawUrl.replace(/\/$/, "");
     const primaryTable = process.env.SUPABASE_TABLE || "experiment_leads";
+
+    const requestHeaders: Record<string, string> = {
+      "Content-Type": "application/json",
+      apikey: supabaseKey.trim(),
+      Prefer: "return=minimal",
+    };
 
     try {
       let res = await fetch(`${cleanUrl}/rest/v1/${primaryTable}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: "return=representation",
-        },
+        headers: requestHeaders,
         body: JSON.stringify(leadRecord),
       });
 
@@ -87,12 +92,7 @@ export async function processLeadSubmission(
       if (res.status === 404 && primaryTable === "experiment_leads") {
         res = await fetch(`${cleanUrl}/rest/v1/tradesquote_leads`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-            Prefer: "return=representation",
-          },
+          headers: requestHeaders,
           body: JSON.stringify(leadRecord),
         });
       }

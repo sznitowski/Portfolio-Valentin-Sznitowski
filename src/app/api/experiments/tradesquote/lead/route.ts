@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { processLeadSubmission } from "@/lib/experiment-leads";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     let payload;
