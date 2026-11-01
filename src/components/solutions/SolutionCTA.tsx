@@ -59,10 +59,27 @@ export function SolutionCTA({ solution }: SolutionCTAProps) {
         ...(utm_content && { utm_content }),
       };
 
-      if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: Function }).gtag === "function") {
-        (window as unknown as { gtag: Function }).gtag("event", "solution_cta_click", trackingPayload);
-      }
+      // 1. Server-side Persistence (keepalive ensures network request survives tab change / protocol redirect)
+      const serverPayload = {
+        event_type: "solution_cta_click",
+        solution_slug: solution.slug,
+        source: `${source}_${type}`,
+        ...(utm_source && { utm_source }),
+        ...(utm_medium && { utm_medium }),
+        ...(utm_campaign && { utm_campaign }),
+        ...(utm_content && { utm_content }),
+      };
 
+      fetch("/api/commercial-signals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(serverPayload),
+        keepalive: true,
+      }).catch(() => {
+        // Non-blocking telemetry
+      });
+
+      // 2. Local buffer for offline inspection
       if (typeof window !== "undefined") {
         const stored = JSON.parse(localStorage.getItem("solution_cta_clicks") || "[]");
         stored.push(trackingPayload);

@@ -4,6 +4,7 @@ import {
   getRadarOverview,
   getRadarOpportunities,
 } from "@/lib/radar-client";
+import { getCommercialSignalsSummary } from "@/lib/commercial-signals";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import {
   Activity,
@@ -16,14 +17,16 @@ import {
   ArrowRight,
   Database,
   RefreshCw,
+  BarChart2,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export default async function IdeaRadarDashboardPage() {
-  const [overviewRes, opportunitiesRes] = await Promise.all([
+  const [overviewRes, opportunitiesRes, commercialSignals] = await Promise.all([
     getRadarOverview(),
     getRadarOpportunities(),
+    getCommercialSignalsSummary(),
   ]);
 
   const isOffline = !overviewRes.success && overviewRes.isOffline;
@@ -179,6 +182,67 @@ export default async function IdeaRadarDashboardPage() {
           </div>
           <div className="text-[10px] text-[var(--text-muted)] mt-1">
             Kill-Test Aprobado (PASS)
+          </div>
+        </div>
+      </div>
+
+      {/* Commercial Demand Signals (Supabase Live Telemetry) */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <BarChart2 className="w-5 h-5 text-sky-400" />
+              <span>Señales Comerciales de Portfolio (Supabase Live)</span>
+            </h2>
+            <p className="text-xs text-[var(--text-muted)]">
+              Métricas anónimas de demanda real por concepto (excluye tráfico de prueba internal_test).
+            </p>
+          </div>
+          <span className="text-[11px] font-mono-tech text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+            TELEMETRÍA PERSISTENTE
+          </span>
+        </div>
+
+        <div className="surface-card rounded-xl border border-[var(--border-subtle)] overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)]/50 text-[var(--text-muted)] font-mono-tech uppercase text-[10px]">
+                  <th className="py-3 px-4">Solución</th>
+                  <th className="py-3 px-3 text-center">Vistas Únicas</th>
+                  <th className="py-3 px-3 text-center">Clics a Contacto</th>
+                  <th className="py-3 px-3 text-center">CTR Comercial</th>
+                  <th className="py-3 px-4 text-right">Ruta Pública</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[var(--border-subtle)]">
+                {commercialSignals.map((sig) => (
+                  <tr key={sig.solution_slug} className="hover:bg-[var(--bg-surface-elevated)]/30 transition">
+                    <td className="py-3 px-4 font-semibold text-[var(--text-primary)]">
+                      {sig.solution_slug}
+                    </td>
+                    <td className="py-3 px-3 text-center font-mono-tech text-[var(--text-secondary)]">
+                      {sig.views}
+                    </td>
+                    <td className="py-3 px-3 text-center font-mono-tech text-emerald-400 font-semibold">
+                      {sig.cta_clicks}
+                    </td>
+                    <td className="py-3 px-3 text-center font-mono-tech text-sky-400 font-semibold">
+                      {sig.ctr.toFixed(1)}%
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      <Link
+                        href={`/soluciones/${sig.solution_slug}`}
+                        target="_blank"
+                        className="text-[11px] text-[var(--text-muted)] hover:text-sky-400 font-mono-tech"
+                      >
+                        /soluciones/{sig.solution_slug} ↗
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

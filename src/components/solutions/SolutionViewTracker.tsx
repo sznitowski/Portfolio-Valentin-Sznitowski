@@ -57,23 +57,46 @@ export function SolutionViewTracker({ solutionSlug }: SolutionViewTrackerProps) 
         ...(utm_content && { utm_content }),
       };
 
-      // 1. Google Analytics 4 (if configured)
-      if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: Function }).gtag === "function") {
-        (window as unknown as { gtag: Function }).gtag("event", "solution_view", payload);
+      // 1. Session Deduplication Guard (prevent inflation on re-renders/back-nav in same tab session)
+      if (typeof window !== "undefined") {
+        const sessionKey = `viewed_solution_${solutionSlug}`;
+        const lastViewedTs = sessionStorage.getItem(sessionKey);
+        const now = Date.now();
+        // Allow re-track only if more than 30 minutes in same session, otherwise skip server view
+        if (lastViewedTs && now - Number(lastViewedTs) < 1800000) {
+          return;
+        }
+        sessionStorage.setItem(sessionKey, now.toString());
       }
 
-      // 2. Local buffer for offline/local commercial signal logging
+      // 2. Server-side Persistence
+      const serverPayload = {
+        event_type: "solution_view",
+        solution_slug: solutionSlug,
+        source,
+        ...(utm_source && { utm_source }),
+        ...(utm_medium && { utm_medium }),
+        ...(utm_campaign && { utm_campaign }),
+        ...(utm_content && { utm_content }),
+      };
+
+      fetch("/api/commercial-signals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(serverPayload),
+        keepalive: true,
+      }).catch(() => {
+        // Non-blocking telemetry
+      });
+
+      // 3. Local buffer for offline inspection
       if (typeof window !== "undefined") {
         const existing = JSON.parse(localStorage.getItem("solution_views") || "[]");
-        const last = existing[existing.length - 1];
-        // Deduplicate rapid reloads (within 5 seconds for the same slug)
-        if (!last || last.solution_slug !== solutionSlug || Date.now() - new Date(last.timestamp).getTime() > 5000) {
-          existing.push(payload);
-          localStorage.setItem("solution_views", JSON.stringify(existing.slice(-50)));
-        }
+        existing.push(payload);
+        localStorage.setItem("solution_views", JSON.stringify(existing.slice(-50)));
       }
 
-      // 3. Client console signal for easy dev/staging verification
+      // 4. Client console signal for verification
       console.info("[COMMERCIAL SIGNAL]: solution_view", payload);
     } catch {
       // Non-blocking telemetry
