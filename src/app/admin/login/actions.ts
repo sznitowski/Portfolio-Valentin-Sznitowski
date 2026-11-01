@@ -9,15 +9,22 @@ export interface LoginState {
 }
 
 export async function loginAction(
-  _prevState: LoginState | undefined,
-  formData: FormData
+  stateOrFormData?: LoginState | FormData,
+  maybeFormData?: FormData
 ): Promise<LoginState> {
-  const email = (formData.get("email") as string)?.trim() || "";
-  const password = (formData.get("password") as string) || "";
+  let formData: FormData | null = null;
+  if (maybeFormData && typeof (maybeFormData as FormData).get === "function") {
+    formData = maybeFormData;
+  } else if (stateOrFormData && typeof (stateOrFormData as FormData).get === "function") {
+    formData = stateOrFormData as FormData;
+  }
 
-  if (!email || !password) {
+  if (!formData) {
     return { error: "Por favor complete todos los campos." };
   }
+
+  const email = (formData.get("email") as string)?.trim() || "";
+  const password = (formData.get("password") as string) || "";
 
   const expectedEmail = process.env.ADMIN_EMAIL || "";
   const expectedPassword = process.env.ADMIN_PASSWORD || "";

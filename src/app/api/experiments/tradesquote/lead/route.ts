@@ -47,5 +47,8 @@ export async function GET() {
     detected_keys: supabaseKeys,
     has_supabase_url: hasUrl,
     has_supabase_anon_key: hasKey,
+    has_admin_email: Boolean(process.env.ADMIN_EMAIL),
+    has_admin_password: Boolean(process.env.ADMIN_PASSWORD),
+    has_admin_session_secret: Boolean(process.env.ADMIN_SESSION_SECRET),
   });
 }
