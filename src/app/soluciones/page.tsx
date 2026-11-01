@@ -162,7 +162,7 @@ export default function SolucionesPage() {
                       Flujo en 5 pasos · Mockup interactivo
                     </span>
                     <Link
-                      href={`/soluciones/${sol.slug}`}
+                      href={`/soluciones/${sol.slug}?source=solutions_index`}
                       className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${buttonAccent}`}
                     >
                       <span>Ver solución</span>

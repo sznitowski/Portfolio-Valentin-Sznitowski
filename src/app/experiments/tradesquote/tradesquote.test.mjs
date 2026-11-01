@@ -26,11 +26,12 @@ function validateLeadInput({ email, honeypot, trade, variant, source, medium, ca
   const leadRecord = {
     email: cleanEmail,
     trade: cleanTrade,
+    opportunity_slug: "contractors-quote_to_invoice",
     variant: cleanVariant,
-    source: source || "meta",
-    medium: medium || "paid_social",
-    campaign: campaign || "tradesquote_probe_01",
-    content: content || "money_loss",
+    utm_source: source || "direct",
+    utm_medium: medium || "none",
+    utm_campaign: campaign || "tradesquote_probe_01",
+    utm_content: content || "money_loss",
     created_at: new Date().toISOString(),
   };
 
@@ -92,10 +93,11 @@ test("Lead Validation - Stores UTM campaign parameters accurately", () => {
     campaign: "tradesquote_probe_01",
     content: "proof",
   });
-  assert.equal(res.data.source, "meta");
-  assert.equal(res.data.medium, "paid_social");
-  assert.equal(res.data.campaign, "tradesquote_probe_01");
-  assert.equal(res.data.content, "proof");
+  assert.equal(res.data.opportunity_slug, "contractors-quote_to_invoice");
+  assert.equal(res.data.utm_source, "meta");
+  assert.equal(res.data.utm_medium, "paid_social");
+  assert.equal(res.data.utm_campaign, "tradesquote_probe_01");
+  assert.equal(res.data.utm_content, "proof");
 });
 
 test("Tracking Event - Normalizes telemetry payload", () => {

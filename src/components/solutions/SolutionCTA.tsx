@@ -40,16 +40,33 @@ export function SolutionCTA({ solution }: SolutionCTAProps) {
   const handleCtaClick = (type: "whatsapp" | "email") => {
     // Lightweight anonymous tracking for commercial interest signals
     try {
+      const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      const utm_source = urlParams?.get("utm_source") || undefined;
+      const utm_medium = urlParams?.get("utm_medium") || undefined;
+      const utm_campaign = urlParams?.get("utm_campaign") || undefined;
+      const utm_content = urlParams?.get("utm_content") || undefined;
+      const source = urlParams?.get("source") || (document.referrer.includes("/soluciones") ? "solutions_index" : document.referrer ? "home" : "direct");
+
       const trackingPayload = {
         event: "solution_cta_click",
         solution_slug: solution.slug,
         type,
+        source,
         timestamp: new Date().toISOString(),
+        ...(utm_source && { utm_source }),
+        ...(utm_medium && { utm_medium }),
+        ...(utm_campaign && { utm_campaign }),
+        ...(utm_content && { utm_content }),
       };
+
+      if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: Function }).gtag === "function") {
+        (window as unknown as { gtag: Function }).gtag("event", "solution_cta_click", trackingPayload);
+      }
+
       if (typeof window !== "undefined") {
         const stored = JSON.parse(localStorage.getItem("solution_cta_clicks") || "[]");
         stored.push(trackingPayload);
-        localStorage.setItem("solution_cta_clicks", JSON.stringify(stored.slice(-20)));
+        localStorage.setItem("solution_cta_clicks", JSON.stringify(stored.slice(-30)));
       }
       console.info("[COMMERCIAL SIGNAL]: CTA Click", trackingPayload);
     } catch {

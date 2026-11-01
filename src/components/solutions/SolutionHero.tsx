@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles, Layers, MessageSquare, CheckCircle2 } from "lucide-react";
@@ -9,6 +11,31 @@ interface SolutionHeroProps {
 }
 
 export function SolutionHero({ solution }: SolutionHeroProps) {
+  const handleHeroCtaClick = () => {
+    try {
+      const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      const trackingPayload = {
+        event: "solution_cta_click",
+        solution_slug: solution.slug,
+        type: "whatsapp",
+        location: "hero",
+        timestamp: new Date().toISOString(),
+        utm_source: urlParams?.get("utm_source") || undefined,
+        utm_campaign: urlParams?.get("utm_campaign") || undefined,
+      };
+      if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: Function }).gtag === "function") {
+        (window as unknown as { gtag: Function }).gtag("event", "solution_cta_click", trackingPayload);
+      }
+      if (typeof window !== "undefined") {
+        const stored = JSON.parse(localStorage.getItem("solution_cta_clicks") || "[]");
+        stored.push(trackingPayload);
+        localStorage.setItem("solution_cta_clicks", JSON.stringify(stored.slice(-30)));
+      }
+      console.info("[COMMERCIAL SIGNAL]: Hero CTA Click", trackingPayload);
+    } catch {
+      // Non-blocking
+    }
+  };
   const accentStyles = {
     sky: {
       badgeBg: "bg-sky-500/10",
@@ -118,6 +145,7 @@ export function SolutionHero({ solution }: SolutionHeroProps) {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleHeroCtaClick}
           className={`inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-bold shadow-lg transition-all active:scale-95 cursor-pointer ${accentStyles.buttonBg}`}
         >
           <MessageSquare className="w-4 h-4" />

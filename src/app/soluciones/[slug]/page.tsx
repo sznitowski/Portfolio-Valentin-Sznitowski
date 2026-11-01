@@ -13,6 +13,7 @@ import { SolutionUseCases } from "@/components/solutions/SolutionUseCases";
 import { SolutionCustomization } from "@/components/solutions/SolutionCustomization";
 import { SolutionDisclaimer } from "@/components/solutions/SolutionDisclaimer";
 import { SolutionCTA } from "@/components/solutions/SolutionCTA";
+import { SolutionViewTracker } from "@/components/solutions/SolutionViewTracker";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 interface SolutionPageProps {
@@ -66,6 +67,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
 
   return (
     <div className="py-20 sm:py-28 min-h-screen">
+      <SolutionViewTracker solutionSlug={solution.slug} />
       <Container>
         <div className="space-y-16 max-w-5xl mx-auto">
           {/* 1. Hero Section */}

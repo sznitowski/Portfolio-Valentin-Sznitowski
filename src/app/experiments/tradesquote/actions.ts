@@ -21,8 +21,8 @@ const recentSubmissionCache = new Map<string, number>();
 
 /**
  * Server Action for capturing TradesQuote experiment leads.
- * Decoupled from local PC: Can store directly in Supabase / Cloud Webhook in production,
- * or fall back seamlessly to local Radar FastAPI / SQLite when available.
+ * Decoupled from local PC: Stores directly in Supabase REST in production,
+ * or falls back to serverless webhook or local Radar FastAPI when available.
  */
 export async function submitLeadAction(
   _prevState: LeadSubmissionState | undefined,
@@ -40,8 +40,8 @@ export async function submitLeadAction(
   const email = rawEmail.toLowerCase();
   const trade = (formData.get("trade") as string)?.trim() || "other";
   const variant = (formData.get("variant") as string)?.trim() || "a";
-  const source = (formData.get("source") as string)?.trim() || "meta";
-  const medium = (formData.get("medium") as string)?.trim() || "paid_social";
+  const source = (formData.get("source") as string)?.trim() || "direct";
+  const medium = (formData.get("medium") as string)?.trim() || "none";
   const campaign = (formData.get("campaign") as string)?.trim() || "tradesquote_probe_01";
   const content = (formData.get("content") as string)?.trim() || "";
 
@@ -66,27 +66,31 @@ export async function submitLeadAction(
     }
   }
 
+  // Strict database contract conforming to public experiment requirements
   const leadRecord = {
     email,
     trade,
+    opportunity_slug: "contractors-quote_to_invoice",
     variant,
-    source,
-    medium,
-    campaign,
-    content,
+    utm_source: source,
+    utm_medium: medium,
+    utm_campaign: campaign,
+    utm_content: content,
     created_at: new Date().toISOString(),
   };
 
-  // 5. Decoupled Persistence Layer
-  let isDuplicate = false;
-
-  // Option A: Supabase Free Tier REST Storage (Zero NPM Dependencies)
+  // 5. Persistence Layer
   const supabaseUrl = process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY;
+  const webhookUrl = process.env.EXPERIMENT_LEADS_WEBHOOK_URL;
 
+  // Option A: Supabase Free Tier REST Storage (Zero NPM Dependencies)
   if (supabaseUrl && supabaseKey) {
+    const cleanUrl = supabaseUrl.replace(/\/$/, "");
+    const primaryTable = process.env.SUPABASE_TABLE || "experiment_leads";
+    
     try {
-      const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/tradesquote_leads`, {
+      let response = await fetch(`${cleanUrl}/rest/v1/${primaryTable}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,26 +101,72 @@ export async function submitLeadAction(
         body: JSON.stringify(leadRecord),
       });
 
+      // If primaryTable returned 404 (table not created), try legacy tradesquote_leads fallback
+      if (response.status === 404 && primaryTable === "experiment_leads") {
+        const legacyRecord = {
+          email,
+          trade,
+          variant,
+          source,
+          medium,
+          campaign,
+          content,
+          created_at: leadRecord.created_at,
+        };
+        response = await fetch(`${cleanUrl}/rest/v1/tradesquote_leads`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+            Prefer: "return=representation",
+          },
+          body: JSON.stringify(legacyRecord),
+        });
+      }
+
       if (response.status === 409) {
-        // Unique violation (email already registered)
+        // Unique violation (opportunity_slug + email already exists)
         return { success: true, isDuplicate: true };
       }
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`[SUPABASE STORAGE ERROR ${response.status}]:`, errorText);
+        return {
+          error: "No pudimos registrar tu solicitud en este momento. Por favor intentá nuevamente en unos minutos.",
+        };
+      }
+
+      console.info(`[TRADESQUOTE LEAD STORED IN SUPABASE]: ${email} (${trade}) - Variant: ${variant}`);
+      return { success: true, isDuplicate: false };
     } catch (err) {
-      console.error("[EXPERIMENT STORAGE WARNING]: Failed to write lead to Supabase:", err);
+      console.error("[SUPABASE CONNECTION ERROR]:", err);
+      return {
+        error: "Error de conexión temporal al registrar tu solicitud. Por favor intentá nuevamente.",
+      };
     }
   }
 
-  // Option B: Generic Serverless Webhook / Cloudflare Worker (Zero Cost)
-  const webhookUrl = process.env.EXPERIMENT_LEADS_WEBHOOK_URL;
+  // Option B: Serverless Webhook / Worker
   if (webhookUrl) {
     try {
-      await fetch(webhookUrl, {
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: "lead_submission", data: leadRecord }),
       });
+      if (!response.ok) {
+        return {
+          error: "No pudimos registrar tu solicitud en este momento. Por favor intentá nuevamente en unos minutos.",
+        };
+      }
+      return { success: true, isDuplicate: false };
     } catch (err) {
-      console.error("[EXPERIMENT STORAGE WARNING]: Failed to write lead to Webhook:", err);
+      console.error("[WEBHOOK STORAGE ERROR]:", err);
+      return {
+        error: "Error de conexión temporal al registrar tu solicitud. Por favor intentá nuevamente.",
+      };
     }
   }
 
@@ -129,19 +179,20 @@ export async function submitLeadAction(
       campaign,
       variant,
     });
-    if (res.success && res.data.is_duplicate) {
-      isDuplicate = true;
+    if (res.success) {
+      return {
+        success: true,
+        isDuplicate: Boolean(res.data.is_duplicate),
+      };
     }
   } catch {
-    // If Radar is offline (e.g. running in production serverless without local PC), ignore
+    // Local Radar unavailable
   }
 
-  // Log in server output for monitoring
-  console.info(`[TRADESQUOTE LEAD CAPTURED]: ${email} (${trade}) - Variant: ${variant} - Campaign: ${campaign}`);
-
+  // In production, if no storage provider is configured, do NOT tell the visitor it succeeded
+  console.warn("[LEAD STORAGE NOT CONFIGURED]: SUPABASE_URL / SUPABASE_ANON_KEY missing.");
   return {
-    success: true,
-    isDuplicate,
+    error: "El servicio de registro se encuentra temporalmente en configuración. Por favor contactanos directamente vía WhatsApp o email.",
   };
 }
 
@@ -156,13 +207,12 @@ export async function trackEventAction(
     event,
     variant: metadata?.variant || "a",
     campaign: metadata?.campaign || "tradesquote_probe_01",
-    source: metadata?.source || "meta",
-    medium: metadata?.medium || "paid_social",
+    source: metadata?.source || "direct",
+    medium: metadata?.medium || "none",
     content: metadata?.content || "",
     timestamp: new Date().toISOString(),
   };
 
-  // Option A: Generic Serverless Webhook
   const webhookUrl = process.env.EXPERIMENT_LEADS_WEBHOOK_URL;
   if (webhookUrl) {
     try {
@@ -176,7 +226,6 @@ export async function trackEventAction(
     }
   }
 
-  // Option B: Local Radar Engine
   try {
     await trackProbeEvent("contractors-quote_to_invoice", event);
   } catch {
