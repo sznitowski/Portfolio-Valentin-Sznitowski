@@ -1,12 +1,9 @@
 "use server";
 
-import { submitProbeLead, trackProbeEvent } from "@/lib/radar-client";
+import { processLeadSubmission, LeadSubmissionState } from "@/lib/experiment-leads";
+import { trackProbeEvent } from "@/lib/radar-client";
 
-export interface LeadSubmissionState {
-  success?: boolean;
-  error?: string;
-  isDuplicate?: boolean;
-}
+export type { LeadSubmissionState };
 
 export interface TrackingMetadata {
   variant?: string;
@@ -16,13 +13,9 @@ export interface TrackingMetadata {
   content?: string;
 }
 
-// In-memory cache for recent submissions to prevent rapid double-clicks and debounce duplicates
-const recentSubmissionCache = new Map<string, number>();
-
 /**
  * Server Action for capturing TradesQuote experiment leads.
- * Decoupled from local PC: Stores directly in Supabase REST in production,
- * or falls back to serverless webhook or local Radar FastAPI when available.
+ * Wraps canonical processLeadSubmission and supports both useActionState and direct FormData invocation.
  */
 export async function submitLeadAction(
   stateOrFormData?: LeadSubmissionState | FormData,
@@ -39,172 +32,18 @@ export async function submitLeadAction(
     return { error: "No se recibieron datos del formulario." };
   }
 
-  // 1. Bot Honeypot Protection (Hidden input; bots typically fill it out)
-  const honeypot = (formData.get("b_company_fax") as string)?.trim();
-  if (honeypot) {
-    // Silently succeed for bots without recording anything
-    return { success: true, isDuplicate: false };
-  }
-
-  // 2. Extract and sanitize input fields
-  const rawEmail = (formData.get("email") as string)?.trim() || "";
-  const email = rawEmail.toLowerCase();
-  const trade = (formData.get("trade") as string)?.trim() || "other";
-  const variant = (formData.get("variant") as string)?.trim() || "a";
-  const source = (formData.get("source") as string)?.trim() || "direct";
-  const medium = (formData.get("medium") as string)?.trim() || "none";
-  const campaign = (formData.get("campaign") as string)?.trim() || "tradesquote_probe_01";
-  const content = (formData.get("content") as string)?.trim() || "";
-
-  // 3. Server-side Email Validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !emailRegex.test(email)) {
-    return { error: "Por favor ingresá un email válido." };
-  }
-
-  // 4. Rate-limiting & Rapid Double-submit debounce (5 seconds threshold)
-  const now = Date.now();
-  const lastSubmitted = recentSubmissionCache.get(email);
-  if (lastSubmitted && now - lastSubmitted < 5000) {
-    return { success: true, isDuplicate: true };
-  }
-  recentSubmissionCache.set(email, now);
-
-  // Clean old entries (> 1 hour)
-  if (recentSubmissionCache.size > 200) {
-    for (const [key, ts] of recentSubmissionCache.entries()) {
-      if (now - ts > 3600000) recentSubmissionCache.delete(key);
-    }
-  }
-
-  // Strict database contract conforming to public experiment requirements
-  const leadRecord = {
-    email,
-    trade,
-    opportunity_slug: "contractors-quote_to_invoice",
-    variant,
-    utm_source: source,
-    utm_medium: medium,
-    utm_campaign: campaign,
-    utm_content: content,
-    created_at: new Date().toISOString(),
+  const payload = {
+    email: (formData.get("email") as string)?.trim() || "",
+    trade: (formData.get("trade") as string)?.trim() || "other",
+    variant: (formData.get("variant") as string)?.trim() || "a",
+    source: (formData.get("source") as string)?.trim() || "direct",
+    medium: (formData.get("medium") as string)?.trim() || "none",
+    campaign: (formData.get("campaign") as string)?.trim() || "tradesquote_probe_01",
+    content: (formData.get("content") as string)?.trim() || "",
+    honeypot: (formData.get("b_company_fax") as string)?.trim(),
   };
 
-  // 5. Persistence Layer
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL;
-  const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY;
-  const webhookUrl = process.env.EXPERIMENT_LEADS_WEBHOOK_URL;
-
-  // Option A: Supabase Free Tier REST Storage (Zero NPM Dependencies)
-  if (supabaseUrl && supabaseKey) {
-    const cleanUrl = supabaseUrl.replace(/\/$/, "");
-    const primaryTable = process.env.SUPABASE_TABLE || "experiment_leads";
-    
-    try {
-      let response = await fetch(`${cleanUrl}/rest/v1/${primaryTable}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: "return=representation",
-        },
-        body: JSON.stringify(leadRecord),
-      });
-
-      // If primaryTable returned 404 (table not created), try legacy tradesquote_leads fallback
-      if (response.status === 404 && primaryTable === "experiment_leads") {
-        const legacyRecord = {
-          email,
-          trade,
-          variant,
-          source,
-          medium,
-          campaign,
-          content,
-          created_at: leadRecord.created_at,
-        };
-        response = await fetch(`${cleanUrl}/rest/v1/tradesquote_leads`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-            Prefer: "return=representation",
-          },
-          body: JSON.stringify(legacyRecord),
-        });
-      }
-
-      if (response.status === 409) {
-        // Unique violation (opportunity_slug + email already exists)
-        return { success: true, isDuplicate: true };
-      }
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`[SUPABASE STORAGE ERROR ${response.status}]:`, errorText);
-        return {
-          error: "No pudimos registrar tu solicitud en este momento. Por favor intentá nuevamente en unos minutos.",
-        };
-      }
-
-      console.info(`[TRADESQUOTE LEAD STORED IN SUPABASE]: ${email} (${trade}) - Variant: ${variant}`);
-      return { success: true, isDuplicate: false };
-    } catch (err) {
-      console.error("[SUPABASE CONNECTION ERROR]:", err);
-      return {
-        error: "Error de conexión temporal al registrar tu solicitud. Por favor intentá nuevamente.",
-      };
-    }
-  }
-
-  // Option B: Serverless Webhook / Worker
-  if (webhookUrl) {
-    try {
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "lead_submission", data: leadRecord }),
-      });
-      if (!response.ok) {
-        return {
-          error: "No pudimos registrar tu solicitud en este momento. Por favor intentá nuevamente en unos minutos.",
-        };
-      }
-      return { success: true, isDuplicate: false };
-    } catch (err) {
-      console.error("[WEBHOOK STORAGE ERROR]:", err);
-      return {
-        error: "Error de conexión temporal al registrar tu solicitud. Por favor intentá nuevamente.",
-      };
-    }
-  }
-
-  // Option C: Local Development with Radar API (FastAPI + SQLite)
-  try {
-    const res = await submitProbeLead("contractors-quote_to_invoice", {
-      email,
-      trade,
-      source,
-      campaign,
-      variant,
-    });
-    if (res.success) {
-      return {
-        success: true,
-        isDuplicate: Boolean(res.data.is_duplicate),
-      };
-    }
-  } catch {
-    // Local Radar unavailable
-  }
-
-  // In production, if no storage provider is configured, do NOT tell the visitor it succeeded
-  console.warn("[LEAD STORAGE NOT CONFIGURED]: SUPABASE_URL / SUPABASE_ANON_KEY missing.");
-  return {
-    error: "El servicio de registro se encuentra temporalmente en configuración. Por favor contactanos directamente vía WhatsApp o email.",
-  };
+  return processLeadSubmission(payload);
 }
 
 /**
