@@ -25,9 +25,20 @@ const recentSubmissionCache = new Map<string, number>();
  * or falls back to serverless webhook or local Radar FastAPI when available.
  */
 export async function submitLeadAction(
-  _prevState: LeadSubmissionState | undefined,
-  formData: FormData
+  stateOrFormData?: LeadSubmissionState | FormData,
+  maybeFormData?: FormData
 ): Promise<LeadSubmissionState> {
+  let formData: FormData | null = null;
+  if (maybeFormData && typeof (maybeFormData as FormData).get === "function") {
+    formData = maybeFormData;
+  } else if (stateOrFormData && typeof (stateOrFormData as FormData).get === "function") {
+    formData = stateOrFormData as FormData;
+  }
+
+  if (!formData) {
+    return { error: "No se recibieron datos del formulario." };
+  }
+
   // 1. Bot Honeypot Protection (Hidden input; bots typically fill it out)
   const honeypot = (formData.get("b_company_fax") as string)?.trim();
   if (honeypot) {
