@@ -35,3 +35,15 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET() {
+  const hasUrl = Boolean(process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL);
+  const hasKey = Boolean(process.env.SUPABASE_ANON_KEY || process.env.EXPERIMENT_STORAGE_KEY);
+  const urlPrefix = (process.env.SUPABASE_URL || process.env.EXPERIMENT_STORAGE_URL || "").slice(0, 16);
+  return NextResponse.json({
+    status: "ok",
+    has_supabase_url: hasUrl,
+    has_supabase_anon_key: hasKey,
+    supabase_url_domain: urlPrefix ? `${urlPrefix}...` : "not_set",
+  });
+}
