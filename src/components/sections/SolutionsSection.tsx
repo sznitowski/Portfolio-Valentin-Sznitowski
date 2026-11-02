@@ -5,32 +5,27 @@ import Link from "next/link";
 import {
   ExternalLink,
   ArrowRight,
-  ShoppingBag,
-  Receipt,
-  Building2,
   Check,
+  Sparkles,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-
 import { businessData } from "@/data/business";
 
-interface SimpleSolutionCard {
+interface RealProjectCard {
   id: string;
   name: string;
   subtitle: string;
   badgeLabel: string;
-  description: string;
-  capabilities: string[];
+  whatItSolves: string;
+  myRole: string;
+  businessResult: string;
   theme: {
-    accentName: "emerald" | "cyan" | "blue";
     border: string;
     borderHover: string;
     badgeBg: string;
     badgeText: string;
     badgeBorder: string;
     dotColor: string;
-    iconBg: string;
-    iconColor: string;
     ctaPrimary: string;
     linkHover: string;
   };
@@ -45,29 +40,22 @@ interface SimpleSolutionCard {
   };
 }
 
-const solutions: SimpleSolutionCard[] = [
+const realProjects: RealProjectCard[] = [
   {
     id: "custom-commerce",
     name: "Catálogo y Ventas a Medida",
     subtitle: "Custom Commerce",
-    badgeLabel: "Demo funcional",
-    description:
-      "Mostrá productos configurables, calculá presupuestos en el momento y recibí solicitudes de compra ordenadas directamente por WhatsApp o email.",
-    capabilities: [
-      "Catálogo digital navegable con categorías y fotos reales",
-      "Personalización de medidas, terminaciones y opciones a medida",
-      "Envío de cotización estructurada lista para confirmar",
-    ],
+    badgeLabel: "Demo en producción",
+    whatItSolves: "Permite a clientes configurar productos por dimensiones y materiales, calculando el precio en el acto y enviando el pedido estructurado por WhatsApp.",
+    myRole: "Desarrollo integral, cotizador dinámico e integración comercial",
+    businessResult: "Elimina la demora de cotización manual y entrega pedidos listos para fabricar.",
     theme: {
-      accentName: "emerald",
       border: "border-emerald-500/25",
       borderHover: "hover:border-emerald-500/60",
       badgeBg: "bg-emerald-500/10",
       badgeText: "text-emerald-400",
       badgeBorder: "border-emerald-500/30",
       dotColor: "bg-emerald-400",
-      iconBg: "bg-emerald-500/10",
-      iconColor: "text-emerald-400",
       ctaPrimary:
         "bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold shadow-md shadow-emerald-500/20",
       linkHover: "hover:text-emerald-400",
@@ -75,12 +63,12 @@ const solutions: SimpleSolutionCard[] = [
     primaryCta: {
       label: businessData.urls.customCommerceDemo
         ? "Probar demo en vivo"
-        : "Demo temporalmente en actualización",
+        : "Demo en actualización",
       href: businessData.urls.customCommerceDemo,
       isExternal: true,
     },
     secondaryCta: {
-      label: "Ver caso de estudio",
+      label: "Ver caso completo",
       href: "/proyectos/custom-commerce",
     },
   },
@@ -89,29 +77,22 @@ const solutions: SimpleSolutionCard[] = [
     name: "Control y Conciliación de Cobros",
     subtitle: "Conciliador de Pagos B2B",
     badgeLabel: "Demo interactiva",
-    description:
-      "Centralizá ventas con tarjetas, liquidaciones bancarias y billeteras digitales para detectar diferencias de dinero y comisiones indebidas.",
-    capabilities: [
-      "Cruce automático de liquidaciones (Visa, Master, MP, Naranja)",
-      "Detección instantánea de sobrearanceles y comisiones extra",
-      "Bandeja de diferencias para resolver desvíos paso a paso",
-    ],
+    whatItSolves: "Cruza ventas con tarjetas, billeteras y bancos para detectar diferencias de acreditación y comisiones indebidas.",
+    myRole: "Motor de conciliación determinístico y bandeja de desvíos",
+    businessResult: "Identifica sobrearanceles y retenciones incorrectas sin revisar planillas a mano.",
     theme: {
-      accentName: "cyan",
       border: "border-cyan-500/25",
       borderHover: "hover:border-cyan-500/60",
       badgeBg: "bg-cyan-500/10",
       badgeText: "text-cyan-400",
       badgeBorder: "border-cyan-500/30",
       dotColor: "bg-cyan-400",
-      iconBg: "bg-cyan-500/10",
-      iconColor: "text-cyan-400",
       ctaPrimary:
         "bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold shadow-md shadow-cyan-500/20",
       linkHover: "hover:text-cyan-400",
     },
     primaryCta: {
-      label: "Explorar demo interactiva",
+      label: "Explorar demo",
       href: "/demos/conciliador",
     },
     secondaryCta: {
@@ -124,29 +105,22 @@ const solutions: SimpleSolutionCard[] = [
     name: "Portal de Autogestión para Proveedores",
     subtitle: "Portal B2B Grupo Atlas",
     badgeLabel: "Demo interactiva",
-    description:
-      "Un espacio seguro donde tus proveedores consultan órdenes de pago, certificados de retención y reclamos sin depender de llamadas ni correos.",
-    capabilities: [
-      "Consulta de órdenes de pago con certificados de retención (PDF)",
-      "Control de vencimiento de legajos fiscales y seguros laborales",
-      "Mesa de ayuda estructurada para seguimiento de reclamos",
-    ],
+    whatItSolves: "Permite a proveedores consultar órdenes de pago, retenciones impositivas y reclamos de forma autónoma.",
+    myRole: "Arquitectura web, área de autogestión y descarga de PDFs",
+    businessResult: "Reduce llamadas y consultas repetitivas al departamento de administración.",
     theme: {
-      accentName: "blue",
       border: "border-blue-500/25",
       borderHover: "hover:border-blue-500/60",
       badgeBg: "bg-blue-500/10",
       badgeText: "text-blue-400",
       badgeBorder: "border-blue-500/30",
       dotColor: "bg-blue-400",
-      iconBg: "bg-blue-500/10",
-      iconColor: "text-blue-400",
       ctaPrimary:
         "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md shadow-blue-500/20",
       linkHover: "hover:text-blue-400",
     },
     primaryCta: {
-      label: "Explorar demo interactiva",
+      label: "Explorar demo",
       href: "/demos/proveedores",
     },
     secondaryCta: {
@@ -158,23 +132,24 @@ const solutions: SimpleSolutionCard[] = [
 
 export const SolutionsSection: React.FC = () => {
   return (
-    <section id="soluciones" className="py-20 sm:py-28 border-b border-[#1E293B]/60 relative">
+    <section id="proyectos" className="py-20 sm:py-28 border-b border-[#1E293B]/60 relative">
+      <div id="soluciones" className="absolute -top-10" />
       <Container>
-        {/* Cabecera Editorial */}
+        {/* PARTE 1: PROYECTOS Y DEMOS REALES */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono-tech uppercase tracking-wider text-slate-400 font-semibold">
-                Soluciones Demostrables
+              <span className="text-xs font-mono-tech uppercase tracking-wider text-[#60A5FA] font-semibold">
+                Proyectos & Demos Reales
               </span>
               <span className="text-slate-600">•</span>
-              <span className="text-xs text-slate-400">Recorridos reales con datos sintéticos</span>
+              <span className="text-xs text-slate-400">Interfaces interactivas con datos de prueba</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mt-2">
               Sistemas que podés probar ahora mismo
             </h2>
             <p className="text-base sm:text-lg text-[#94A3B8] mt-2 leading-relaxed">
-              Tres soluciones con interfaces reales diseñadas para resolver operativas de negocio específicas. Cada una con su propia identidad visual y flujo de uso.
+              Herramientas funcionales desarrolladas para resolver problemas operativos específicos de empresas y comercios.
             </p>
           </div>
 
@@ -183,105 +158,96 @@ export const SolutionsSection: React.FC = () => {
               href="/soluciones"
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white px-4 py-2.5 rounded-lg bg-[#111827] border border-[#1E293B] hover:border-slate-600 transition-colors"
             >
-              <span>Ver comparativa completa</span>
+              <span>Ver soluciones adaptables</span>
               <ArrowRight className="w-4 h-4 text-[#60A5FA]" />
             </Link>
           </div>
         </div>
 
-        {/* Grilla de 3 Soluciones con Peso Visual Idéntico e Identidad Cromática */}
+        {/* Grilla de 3 Proyectos Reales */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {solutions.map((sol) => (
+          {realProjects.map((p) => (
             <div
-              key={sol.id}
-              className={`rounded-2xl border ${sol.theme.border} ${sol.theme.borderHover} bg-[#111827] p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 hover:bg-[#131B2A] relative overflow-hidden group`}
+              key={p.id}
+              className={`rounded-2xl border ${p.theme.border} ${p.theme.borderHover} bg-[#111827] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:bg-[#131B2A] relative overflow-hidden group`}
             >
-              {/* Contenido Principal */}
-              <div className="space-y-5">
-                {/* Header de la Card: Subtítulo + Badge cromático */}
+              <div className="space-y-4">
+                {/* Header de la Card */}
                 <div className="flex items-center justify-between gap-2 pb-3 border-b border-[#1E293B]">
                   <span className="text-[11px] font-mono-tech uppercase text-slate-400 font-semibold tracking-wider">
-                    {sol.subtitle}
+                    {p.subtitle}
                   </span>
                   <span
-                    className={`inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-0.5 rounded-full border ${sol.theme.badgeBg} ${sol.theme.badgeText} ${sol.theme.badgeBorder}`}
+                    className={`inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-0.5 rounded-full border ${p.theme.badgeBg} ${p.theme.badgeText} ${p.theme.badgeBorder}`}
                   >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${sol.theme.dotColor} ${
-                        sol.id === "custom-commerce" ? "animate-pulse-live" : ""
-                      }`}
-                    />
-                    {sol.badgeLabel}
+                    <span className={`w-1.5 h-1.5 rounded-full ${p.theme.dotColor}`} />
+                    {p.badgeLabel}
                   </span>
                 </div>
 
-                {/* Título de la Solución */}
-                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
-                  {sol.name}
+                {/* Título */}
+                <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
+                  {p.name}
                 </h3>
 
-                {/* Frase / Explicación simple */}
-                <p className="text-sm text-slate-300 leading-relaxed font-normal">
-                  {sol.description}
+                {/* Qué resuelve */}
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  {p.whatItSolves}
                 </p>
 
-                {/* 3 Capacidades concretas con bullets limpios */}
-                <div className="pt-2 space-y-2.5">
-                  <span className="text-[11px] font-mono-tech uppercase tracking-wider text-slate-400 font-semibold block">
-                    Capacidades clave:
-                  </span>
-                  <ul className="space-y-2">
-                    {sol.capabilities.map((cap, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                        <span
-                          className={`flex items-center justify-center w-4 h-4 rounded-full ${sol.theme.iconBg} ${sol.theme.iconColor} shrink-0 mt-0.5`}
-                        >
-                          <Check className="w-2.5 h-2.5" />
-                        </span>
-                        <span className="leading-snug">{cap}</span>
-                      </li>
-                    ))}
-                  </ul>
+                {/* Mi Rol & Resultado de negocio */}
+                <div className="pt-2 space-y-2 border-t border-[#1E293B]/80 text-xs">
+                  <div>
+                    <span className="text-[10px] font-mono-tech text-slate-500 uppercase block font-semibold">
+                      Mi rol:
+                    </span>
+                    <span className="text-slate-300">{p.myRole}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono-tech text-emerald-400 uppercase block font-semibold">
+                      Resultado de negocio:
+                    </span>
+                    <span className="text-slate-300 font-medium">{p.businessResult}</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Botones de Acción */}
-              <div className="pt-6 mt-6 border-t border-[#1E293B] space-y-2.5">
-                {sol.primaryCta.isExternal ? (
-                  sol.primaryCta.href ? (
+              {/* Acciones */}
+              <div className="pt-5 mt-5 border-t border-[#1E293B] space-y-2">
+                {p.primaryCta.isExternal ? (
+                  p.primaryCta.href ? (
                     <a
-                      href={sol.primaryCta.href}
+                      href={p.primaryCta.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg ${sol.theme.ctaPrimary} text-xs sm:text-sm transition-all`}
+                      className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[42px] rounded-lg ${p.theme.ctaPrimary} text-xs font-semibold transition-all`}
                     >
-                      <span>{sol.primaryCta.label}</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <span>{p.primaryCta.label}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   ) : (
                     <div
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-300/80 font-medium text-xs sm:text-sm select-none"
-                      title="El enlace público hacia la demo en Netlify se encuentra en actualización"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[42px] rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-300/80 font-medium text-xs select-none"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
-                      <span>{sol.primaryCta.label}</span>
+                      <span>{p.primaryCta.label}</span>
                     </div>
                   )
                 ) : (
                   <Link
-                    href={sol.primaryCta.href!}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg ${sol.theme.ctaPrimary} text-xs sm:text-sm transition-all`}
+                    href={p.primaryCta.href!}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[42px] rounded-lg ${p.theme.ctaPrimary} text-xs font-semibold transition-all`}
                   >
-                    <span>{sol.primaryCta.label}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>{p.primaryCta.label}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 )}
 
                 <Link
-                  href={sol.secondaryCta.href}
-                  className={`w-full inline-flex items-center justify-center gap-1.5 text-xs text-slate-400 ${sol.theme.linkHover} py-1.5 transition-colors`}
+                  href={p.secondaryCta.href}
+                  className={`w-full inline-flex items-center justify-center gap-1.5 text-xs text-slate-400 ${p.theme.linkHover} py-1 transition-colors`}
                 >
-                  <span>{sol.secondaryCta.label}</span>
+                  <span>{p.secondaryCta.label}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -289,18 +255,18 @@ export const SolutionsSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Teaser: Soluciones Adaptables en Exploración */}
+        {/* PARTE 2: MODELOS DE SOLUCIÓN ADAPTABLES (Diferenciados de proyectos) */}
         <div className="mt-16 p-6 sm:p-8 rounded-2xl bg-[#090D16] border border-[#1E293B] space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1E293B] pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                <Sparkles className="w-4 h-4 text-sky-400" />
                 <h3 className="text-base sm:text-lg font-bold text-white">
-                  Soluciones que estoy explorando y adaptando
+                  Modelos de Solución Adaptables
                 </h3>
               </div>
               <p className="text-xs text-slate-400 mt-0.5">
-                Modelos de software con flujos validados, listos para implementar a medida para tu empresa
+                Flujos de software validados listos para implementar con la identidad y operativa de tu empresa.
               </p>
             </div>
             <Link
@@ -312,7 +278,7 @@ export const SolutionsSection: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link
               href="/soluciones/tradesquote"
               className="p-4 rounded-xl bg-[#111827] border border-slate-800 hover:border-sky-500/40 transition group space-y-2 block"
@@ -321,14 +287,18 @@ export const SolutionsSection: React.FC = () => {
                 <span className="text-[10px] font-mono-tech font-bold text-sky-400 uppercase">
                   EN VALIDACIÓN
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono-tech">Oficios / Obras</span>
+                <span className="text-[10px] text-slate-500 font-mono-tech">Oficios</span>
               </div>
               <h4 className="text-sm font-bold text-white group-hover:text-sky-300 transition">
                 TradesQuote
               </h4>
-              <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-                Aprobación de cambios de trabajo y adicionales en obra en menos de 60 segundos con foto y firma.
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Aprobá adicionales en obra al instante con foto y firma del cliente en el celular.
               </p>
+              <div className="pt-2 text-[11px] font-semibold text-sky-400 group-hover:underline flex items-center gap-1">
+                <span>Ver solución</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </Link>
 
             <Link
@@ -339,14 +309,18 @@ export const SolutionsSection: React.FC = () => {
                 <span className="text-[10px] font-mono-tech font-bold text-emerald-400 uppercase">
                   ADAPTABLE
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono-tech">Service Técnico</span>
+                <span className="text-[10px] text-slate-500 font-mono-tech">Service</span>
               </div>
               <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition">
                 Checklist Rápido
               </h4>
-              <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-                Inspecciones guiadas offline para técnicos en campo, fotos anotadas y reportes PDF automáticos.
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Inspecciones guiadas para técnicos en campo, fotos y reportes sin depender de WhatsApp.
               </p>
+              <div className="pt-2 text-[11px] font-semibold text-emerald-400 group-hover:underline flex items-center gap-1">
+                <span>Ver solución</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </Link>
 
             <Link
@@ -355,16 +329,42 @@ export const SolutionsSection: React.FC = () => {
             >
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono-tech font-bold text-indigo-400 uppercase">
-                  CONCEPTO
+                  ADAPTABLE
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono-tech">Rutas & Flotas</span>
+                <span className="text-[10px] text-slate-500 font-mono-tech">Cuadrillas</span>
               </div>
               <h4 className="text-sm font-bold text-white group-hover:text-indigo-300 transition">
                 CleanRoute
               </h4>
-              <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-                Organización de visitas y hojas de ruta para cuadrillas móviles, ahorrando combustible y traslados.
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Organización de rutas y confirmación de visitas para servicios y facilities en domicilio.
               </p>
+              <div className="pt-2 text-[11px] font-semibold text-indigo-400 group-hover:underline flex items-center gap-1">
+                <span>Ver solución</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </Link>
+
+            <Link
+              href="/soluciones/truckstock-lite"
+              className="p-4 rounded-xl bg-[#111827] border border-slate-800 hover:border-amber-500/40 transition group space-y-2 block"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono-tech font-bold text-amber-400 uppercase">
+                  ADAPTABLE
+                </span>
+                <span className="text-[10px] text-slate-500 font-mono-tech">Repuestos</span>
+              </div>
+              <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition">
+                TruckStock Lite
+              </h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Control de materiales y repuestos asignados a vehículos para evitar faltantes en obra.
+              </p>
+              <div className="pt-2 text-[11px] font-semibold text-amber-400 group-hover:underline flex items-center gap-1">
+                <span>Ver solución</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </Link>
           </div>
         </div>

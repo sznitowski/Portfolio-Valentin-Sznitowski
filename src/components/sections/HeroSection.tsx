@@ -32,32 +32,32 @@ export const HeroSection: React.FC = () => {
             </span>
           </h1>
 
-          {/* Subheadline comercial enfocado al cliente */}
-          <p className="text-base sm:text-lg lg:text-xl text-[#94A3B8] max-w-2xl mx-auto leading-relaxed font-normal">
-            Construyo software a medida, automatizo procesos repetitivos, conecto sistemas mediante integraciones y realizo mantenimiento o modernización de aplicaciones existentes para que tu negocio opere con mayor agilidad y autonomía.
+          {/* Subheadline comercial enfocado al cliente (35 palabras) */}
+          <p className="text-base sm:text-lg text-[#94A3B8] max-w-2xl mx-auto leading-relaxed font-normal">
+            Ayudo a empresas a reemplazar planillas y tareas manuales con herramientas a medida: paneles internos, portales de clientes, automatizaciones e integraciones para que tu negocio opere con más agilidad y menos errores.
           </p>
 
-          {/* CTAs duales */}
+          {/* CTAs duales estandarizados */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto pt-2">
-            <Button
-              href="#soluciones"
-              size="lg"
-              variant="primary"
-              icon={<ArrowDown className="w-4 h-4" />}
-              className="w-full sm:w-auto font-semibold"
-            >
-              Ver soluciones y demos
-            </Button>
             <Button
               href={businessData.whatsapp.url}
               isExternal
               size="lg"
-              variant="secondary"
-              icon={<MessageSquare className="w-4 h-4 text-[#10B981]" />}
+              variant="primary"
+              icon={<MessageSquare className="w-4 h-4 text-white" />}
               iconPosition="left"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto font-semibold"
             >
               Contame tu proyecto
+            </Button>
+            <Button
+              href="/soluciones"
+              size="lg"
+              variant="secondary"
+              icon={<ArrowDown className="w-4 h-4 text-[#60A5FA]" />}
+              className="w-full sm:w-auto"
+            >
+              Ver soluciones
             </Button>
           </div>
 

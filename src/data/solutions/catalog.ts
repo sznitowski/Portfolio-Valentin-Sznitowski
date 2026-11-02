@@ -34,6 +34,8 @@ export interface PortfolioSolution {
   slug: string;
   name: string;
   tagline: string;
+  oneLineProblem: string;
+  targetUserShort: string;
   statusLabel: string;
   badgeType: "validation" | "concept";
   commercialClassification: CommercialClassification[];
@@ -67,6 +69,8 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     slug: "tradesquote",
     name: "TradesQuote",
     tagline: "Estimador y Aprobación de Trabajos Extra en Obra",
+    oneLineProblem: "Aprobá trabajos extra y cambios de obra en el acto con foto y firma del cliente desde el celular.",
+    targetUserShort: "Contratistas, electricistas y remodeladores",
     statusLabel: "EN VALIDACIÓN / PERSONALIZABLE",
     badgeType: "validation",
     commercialClassification: ["PRODUCT_CANDIDATE", "PORTFOLIO_SOLUTION", "EXPERIMENT_ONLY"],
@@ -74,22 +78,22 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     targetUser: "Electricistas, plomeros, remodeladores y contratistas de oficios independientes",
     headline: "Aprobá cambios de trabajo en obra en menos de 60 segundos con foto y firma del cliente",
     subheadline:
-      "Una solución móvil diseñada para que los profesionales de oficios documenten adicionales e imprevistos en el momento exacto en que ocurren, evitando horas de trabajo no cobradas y discusiones al facturar.",
+      "Una herramienta móvil para que contratistas documenten adicionales e imprevistos en el momento exacto en que ocurren, evitando horas no cobradas y discusiones al facturar.",
     problem: {
       statement:
-        "En obra, el cliente suele pedir modificaciones verbales ('¿me agregás dos tomas acá?', 'cambiemos este caño también'). El contratista hace el trabajo sin documentarlo y al momento de cobrar el cliente discute el precio o desconoce el acuerdo.",
+        "En obra, el cliente suele pedir modificaciones verbales. El contratista hace el trabajo sin constancia firmada y al momento de cobrar surgen discusiones por el precio o el alcance.",
       painPoints: [
-        "Horas de mano de obra y materiales regalados por falta de constancia firmada.",
-        "Discusiones incómodas al emitir la factura final al terminar la obra.",
-        "Pérdida de tiempo rehaciendo presupuestos a mano de noche en casa.",
-        "Falta de fotos con fecha y hora que justifiquen el costo adicional.",
+        "Horas de trabajo y materiales regalados por falta de constancia firmada.",
+        "Discusiones incómodas al emitir la factura final de la obra.",
+        "Pérdida de tiempo rehaciendo presupuestos a mano de noche.",
+        "Falta de fotos fechadas que justifiquen el costo adicional.",
       ],
     },
     solutionConcept: {
       summary:
         "Flujo ultrarrápido desde el teléfono móvil: el contratista agrega el nuevo ítem en 30 segundos, toma una foto del imprevisto, le hace firmar la pantalla al cliente in-situ y la orden queda sellada y vinculada a la factura final.",
       differentiator:
-        "Cero fricción in-situ: concebido para usarse con guantes de trabajo o una sola mano, 100% offline y sin necesidad de computadoras.",
+        "Cero fricción in-situ: concebido para usarse con guantes de trabajo o una sola mano, funciona sin internet y sin necesidad de computadoras.",
     },
     workflow: [
       {
@@ -101,7 +105,7 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
       },
       {
         step: 2,
-        title: "Change Order In-Situ",
+        title: "Orden de Cambio In-Situ",
         subtitle: "Menos de 30 seg",
         description: "Adición del trabajo extra con nuevo precio unitario al momento del pedido.",
         iconName: "FileCheck",
@@ -110,14 +114,14 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         step: 3,
         title: "Foto de Evidencia",
         subtitle: "Respaldo visual",
-        description: "Registro fotográfico con timestamp georreferenciado del estado de la instalación.",
+        description: "Registro fotográfico con fecha y hora del estado de la instalación.",
         iconName: "Camera",
       },
       {
         step: 4,
         title: "Firma en Pantalla",
-        subtitle: "Aprobación legal",
-        description: "El cliente aprueba con el dedo en tu pantalla antes de comenzar el extra.",
+        subtitle: "Aprobación del cliente",
+        description: "El cliente aprueba con el dedo en la pantalla antes de comenzar el extra.",
         iconName: "PenTool",
       },
       {
@@ -132,8 +136,8 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     benefits: [
       {
         title: "Cobro documentado de extras",
-        description: "Elimina los 'hacelo y después vemos' que terminan en desacuerdos al momento de facturar.",
-        stat: "Objetivo",
+        description: "Elimina los acuerdos verbales que terminan en desacuerdos al momento de facturar.",
+        stat: "Respaldado",
       },
       {
         title: "Aprobación in-situ",
@@ -141,8 +145,8 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         stat: "In-situ",
       },
       {
-        title: "Respaldo fotográfico y firma",
-        description: "Foto y firma digital integradas que dejan constancia del estado de la obra y el acuerdo.",
+        title: "Respaldo con foto y firma",
+        description: "Foto y firma digital integradas que dejan constancia del estado de obra y el acuerdo.",
         stat: "Con firma",
       },
       {
@@ -153,12 +157,12 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     features: [
       {
-        title: "Almacenamiento Local (PWA)",
-        description: "Permite registrar datos y fotos en el dispositivo aun en zonas o subsuelos sin cobertura móvil.",
+        title: "Funciona sin internet",
+        description: "Permite registrar datos y fotos en el dispositivo aun en zonas o subsuelos sin señal móvil.",
       },
       {
         title: "Firma digital en pantalla",
-        description: "Captura de firma manuscrita con registro de fecha, hora y confirmación del cliente.",
+        description: "Captura de firma manuscrita con registro de fecha y hora de la confirmación.",
       },
       {
         title: "Catálogo de precios guardado",
@@ -171,24 +175,24 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     useCases: [
       {
-        target: "Electricista Residencial",
-        scenario: "El cliente pide mover el tablero general y agregar 4 circuitos tras abrir la pared.",
+        target: "Electricistas",
+        scenario: "El cliente pide mover el tablero general y agregar tomas tras abrir la pared.",
       },
       {
-        target: "Plomero / Instalador Sanitario",
-        scenario: "Detección de cañería podrida oculta bajo la losa que no formaba parte del presupuesto original.",
+        target: "Plomeros e Instaladores",
+        scenario: "Detección de cañería rota oculta que no formaba parte del presupuesto original.",
       },
       {
-        target: "Instalador de Aire Acondicionado",
+        target: "Climatización y Montajes",
         scenario: "Metros de cañería de cobre extra o soporte de ménsula especial requeridos en altura.",
       },
     ],
     customizationOptions: [
       "Adaptación a marcas, membrete corporativo y catálogo de ítems propios.",
-      "Integración directa con tu sistema de facturación electrónica o ERP existente.",
-      "Sincronización multi-técnico para cuadrillas de varios vehículos con panel central de control.",
+      "Integración directa con tu sistema de facturación o gestión existente.",
+      "Sincronización multi-técnico para cuadrillas con panel central de control.",
     ],
-    techStack: ["React / Next.js", "PWA Offline-First", "IndexedDB", "Node.js REST API", "Generador PDF nativo"],
+    techStack: ["Next.js / React", "Almacenamiento en el dispositivo", "Generador de reportes PDF", "API de sincronización"],
     accentColor: "sky",
     ctaText: "Quiero una solución así",
     whatsappMessage:
@@ -198,30 +202,32 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     id: "checklist-rapido",
     slug: "checklist-rapido",
     name: "Checklist Rápido",
-    tagline: "Inspecciones Técnicas Digitales & Reportes Offline",
-    statusLabel: "CONCEPTO DE SOLUCIÓN / PERSONALIZABLE",
+    tagline: "Inspecciones Técnicas Digitales & Reportes Inmediatos",
+    oneLineProblem: "Digitalizá inspecciones, fotos y reportes de tus técnicos sin depender de papel ni WhatsApp.",
+    targetUserShort: "Empresas de mantenimiento, service y climatización",
+    statusLabel: "CONCEPTO / PERSONALIZABLE",
     badgeType: "concept",
     commercialClassification: ["PORTFOLIO_SOLUTION", "CUSTOM_DEVELOPMENT_LEAD"],
     radarSlug: "field_inspections-digitalizar_checklists",
-    targetUser: "Empresas de servicio técnico, mantenimiento preventivo, HVAC, electricistas y montajes",
+    targetUser: "Empresas de servicio técnico, mantenimiento preventivo, climatización y montajes",
     headline: "Digitalizá tus inspecciones y service técnico en campo sin planillas de papel",
     subheadline:
-      "Un sistema ágil para que tus técnicos en calle completen revisiones guiadas en el celular, adjunten fotos con anotaciones, firmen la conformidad y emitan el informe al cliente en el acto.",
+      "Un sistema ágil para que tus técnicos completen revisiones guiadas en el celular, adjunten fotos, firmen la conformidad y emitan el informe al cliente en el acto.",
     problem: {
       statement:
-        "Técnicos de mantenimiento e instalación completan planillas en papel que se ensucian, se pierden o requieren que alguien en la oficina pase los datos a Excel manualmente horas después de terminada la visita.",
+        "Técnicos de mantenimiento completan planillas en papel que se ensucian, se pierden o requieren que alguien en la oficina pase los datos a Excel manualmente horas después de terminada la visita.",
       painPoints: [
-        "Planillas manuscritas ilegibles y fotos enviadas en chats de WhatsApp desordenados.",
+        "Planillas de papel ilegibles y fotos dispersas en chats de WhatsApp.",
         "Demora de días en entregar el reporte de mantenimiento o inspección al cliente.",
-        "Dificultad para auditar si el técnico verificó todos los puntos críticos de seguridad.",
-        "Falta de historial unificado por cliente, máquina o equipo intervenido.",
+        "Dificultad para auditar si el técnico verificó todos los puntos críticos.",
+        "Falta de historial unificado por cliente o equipo intervenido.",
       ],
     },
     solutionConcept: {
       summary:
-        "Checklists dinámicos y personalizables según el tipo de servicio: campos obligatorios, fotos del estado antes/después, captura de anomalías con nivel de gravedad y firma digital del encargado del sitio.",
+        "Checklists dinámicos y adaptados a tu operativa: campos obligatorios, fotos del estado antes/después, captura de anomalías con nivel de gravedad y firma digital del encargado del sitio.",
       differentiator:
-        "No requiere pagar licencias carísimas por usuario de plataformas extranjeras rígidas: se adapta con exactitud a los formularios y flujos operativos de tu empresa.",
+        "No requiere pagar licencias mensuales rígidas en dólares: se adapta con exactitud a los formularios y flujos operativos de tu empresa.",
     },
     workflow: [
       {
@@ -235,13 +241,13 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         step: 2,
         title: "Revisión Guiada",
         subtitle: "Items obligatorios",
-        description: "Puntos de control organizados por subsistemas (eléctrico, mecánico, fugas).",
+        description: "Puntos de control organizados por subsistemas con verificación paso a paso.",
         iconName: "CheckSquare",
       },
       {
         step: 3,
         title: "Captura de Hallazgos",
-        subtitle: "Fotos y severidad",
+        subtitle: "Fotos y gravedad",
         description: "Adjunto de fotos con anotaciones sobre piezas desgastadas o no conformidades.",
         iconName: "Camera",
       },
@@ -285,12 +291,12 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     features: [
       {
-        title: "Plantillas de inspección dinámicas",
-        description: "Campos de texto, selectores, checklists de verificación, lecturas numéricas y rangos de tolerancia.",
+        title: "Formularios de inspección dinámicos",
+        description: "Campos de texto, selectores, checklists de verificación y rangos de tolerancia.",
       },
       {
         title: "Marcador sobre fotos",
-        description: "Permite dibujar flechas o círculos sobre la foto para señalar exactamente la avería o defecto.",
+        description: "Permite dibujar flechas o círculos sobre la foto para señalar exactamente la avería.",
       },
       {
         title: "Generación de PDF con tu marca",
@@ -304,15 +310,15 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     useCases: [
       {
         target: "Mantenimiento HVAC / Climatización",
-        scenario: "Inspección semestral de chillers, presiones de refrigerante, limpieza de filtros y consumo eléctrico.",
+        scenario: "Inspección semestral de presiones, limpieza de filtros y consumo eléctrico.",
       },
       {
         target: "Service de Ascensores y Montacargas",
-        scenario: "Control normativo mensual de frenos, cables de tracción, seguridades de puerta y botoneras.",
+        scenario: "Control normativo mensual de frenos, cables de tracción y seguridades de puerta.",
       },
       {
         target: "Instalaciones de Gas y Calderas",
-        scenario: "Prueba de hermeticidad, verificación de ventilaciones, combustión y entrega de certificado.",
+        scenario: "Prueba de hermeticidad, verificación de ventilaciones y entrega de constancia técnica.",
       },
     ],
     customizationOptions: [
@@ -320,9 +326,9 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
       "Integración con base de datos de clientes, números de serie y máquinas.",
       "Envío automático por correo a múltiples destinatarios según el tipo de cliente.",
     ],
-    techStack: ["Next.js (App Router)", "TypeScript", "Node.js API", "SQLite / PostgreSQL", "PDFKit Engine"],
+    techStack: ["Next.js / React", "Generador de reportes PDF", "Almacenamiento seguro", "Panel web administrativo"],
     accentColor: "emerald",
-    ctaText: "Consultar desarrollo para mi equipo",
+    ctaText: "Quiero una solución así",
     whatsappMessage:
       "Hola Valentín, estuve viendo el concepto de Checklist Rápido en tu portfolio y quiero consultar por una aplicación de inspecciones a medida para mi equipo técnico.",
   },
@@ -331,29 +337,31 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     slug: "cleanroute",
     name: "CleanRoute",
     tagline: "Organización de Visitas, Rutas y Cuadrillas Móviles",
-    statusLabel: "CONCEPTO DE SOLUCIÓN",
+    oneLineProblem: "Organizá recorridos de cuadrillas y verificá llegadas a clientes sin planillas desactualizadas.",
+    targetUserShort: "Empresas de limpieza, facilities y servicios en domicilio",
+    statusLabel: "CONCEPTO / PERSONALIZABLE",
     badgeType: "concept",
     commercialClassification: ["PORTFOLIO_SOLUTION", "CUSTOM_DEVELOPMENT_LEAD"],
     radarSlug: "cleaning-route_optimize",
     targetUser: "Empresas de limpieza, servicios a domicilio, mantenimiento y repartos urbanos",
     headline: "Optimizá el recorrido diario de tus cuadrillas y reducí horas perdidas en tráfico",
     subheadline:
-      "Una herramienta operativa para centralizar clientes, ordenar las visitas del día de forma geográfica y darle a cada cuadrilla su hoja de ruta ordenada directamente en el celular.",
+      "Una herramienta operativa para centralizar clientes, ordenar las visitas del día de forma geográfica y darle a cada cuadrilla su hoja de ruta directamente en el celular.",
     problem: {
       statement:
-        "Los dueños de empresas de servicios urbanos pasan horas coordinando turnos en planillas y chats. Las cuadrillas cruzan la ciudad de una punta a la otra en zigzag, perdiendo combustible, tiempo y llegando tarde a los turnos.",
+        "Coordinar cuadrillas en planillas y chats provoca viajes en zigzag por la ciudad, perdiendo combustible, tiempo y generando demoras ante los clientes.",
       painPoints: [
-        "Cuadrillas atrapadas en embotellamientos por rutas mal ordenadas.",
-        "Gasto excesivo de combustible y desgaste de vehículos por traslados innecesarios.",
-        "Cambios de último momento que desorganizan toda la agenda de la jornada.",
+        "Cuadrillas atrapadas en el tráfico por rutas mal organizadas.",
+        "Gasto excesivo de combustible por traslados cruzados innecesarios.",
+        "Cambios de último momento que desorganizan toda la agenda del día.",
         "Falta de visibilidad sobre si el equipo completó o no el servicio asignado.",
       ],
     },
     solutionConcept: {
       summary:
-        "Tablero de despacho central que agrupa visitas por zonas y calcula el orden más eficiente de paradas. Cada cuadrilla accede a su lista de paradas en el celular, con dirección, horarios, indicaciones especiales y botón de aviso de llegada.",
+        "Tablero de despacho central que agrupa visitas por zonas y calcula el orden más eficiente de paradas. Cada cuadrilla accede a su lista en el celular, con dirección, horarios, indicaciones y confirmación de llegada.",
       differentiator:
-        "Sin la complejidad excesiva ni los costos de software de logística de gran escala: pensado para negocios de 2 a 15 vehículos que necesitan orden práctico.",
+        "Sin la complejidad excesiva ni los costos de software de logística de gran escala: pensado para empresas de 2 a 15 vehículos que necesitan orden práctico.",
     },
     workflow: [
       {
@@ -379,8 +387,8 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
       },
       {
         step: 4,
-        title: "Check-in en Destino",
-        subtitle: "Confirmación horaria",
+        title: "Confirmación en Destino",
+        subtitle: "Control horario",
         description: "El operario marca inicio y fin del servicio con un solo toque al llegar al lugar.",
         iconName: "Clock",
       },
@@ -388,7 +396,7 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         step: 5,
         title: "Control de Avance",
         subtitle: "Panel en oficina",
-        description: "Visibilidad en vivo del estado de cada cuadrilla (En viaje, En obra, Finalizado).",
+        description: "Visibilidad en vivo del estado de cada cuadrilla (En viaje, En servicio, Finalizado).",
         iconName: "Activity",
       },
     ],
@@ -405,7 +413,7 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         stat: "En el móvil",
       },
       {
-        title: "Capacidad de reprogramación ágil",
+        title: "Reprogramación ágil ante cambios",
         description: "Permite reordenar el itinerario ante cancelaciones o imprevistos de último momento.",
         stat: "Flexible",
       },
@@ -417,15 +425,15 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     features: [
       {
-        title: "Vista de despachador visual",
+        title: "Tablero de despacho visual",
         description: "Calendario con mapa que muestra las cuadrillas y sus recorridos planificados.",
       },
       {
-        title: "App móvil para operarios",
-        description: "Interfaz ultralimpia: solo muestra el próximo cliente, teléfono, instrucciones de acceso y mapa.",
+        title: "Interfaz móvil para operarios",
+        description: "Vista ultralimpia: solo muestra el próximo cliente, teléfono, instrucciones de acceso y mapa.",
       },
       {
-        title: "Integración con Google Maps / Waze",
+        title: "Integración con GPS (Google Maps / Waze)",
         description: "Un toque en la dirección abre directamente el GPS preferido del conductor.",
       },
       {
@@ -435,26 +443,26 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     useCases: [
       {
-        target: "Empresas de Limpieza Doméstica y Comercial",
-        scenario: "Asignación de cuadrillas fijas y eventuales por barrios para cubrir 4 servicios diarios por equipo.",
+        target: "Limpieza Doméstica y Comercial",
+        scenario: "Asignación de cuadrillas fijas y eventuales por zonas para cubrir 4 servicios diarios por equipo.",
       },
       {
-        target: "Servicios de Desinfección y Plagas",
-        scenario: "Planificación de visitas mensuales a comercios y consorcios dentro de una misma zona geográfica.",
+        target: "Desinfección y Control de Plagas",
+        scenario: "Planificación de visitas mensuales a comercios y consorcios dentro de una misma zona.",
       },
       {
         target: "Mantenimiento de Piletas y Parques",
-        scenario: "Circuitos fijos de atención semanal en countries y barrios cerrados sin pérdida de tiempo en traslados.",
+        scenario: "Circuitos fijos de atención semanal en countries y barrios cerrados sin traslados cruzados.",
       },
     ],
     customizationOptions: [
-      "Configuración de horarios de apertura y ventanas horarias de clientes específicos.",
-      "Integración con WhatsApp para enviar aviso automático al cliente ('Tu cuadrilla está en camino').",
-      "Métricas de rendimiento por cuadrilla y tiempo promedio por tipo de servicio.",
+      "Configuración de horarios de atención y ventanas horarias de clientes específicos.",
+      "Integración con WhatsApp para avisar al cliente ('Tu cuadrilla está en camino').",
+      "Métricas de tiempo promedio por tipo de servicio y rendimiento por cuadrilla.",
     ],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Mapbox / Leaflet", "Node.js REST API"],
+    techStack: ["Next.js / React", "Mapas interactivos", "API de geolocalización", "Panel de despacho central"],
     accentColor: "indigo",
-    ctaText: "Quiero optimizar mis rutas",
+    ctaText: "Quiero una solución así",
     whatsappMessage:
       "Hola Valentín, vi el concepto de CleanRoute en tu portfolio y me gustaría consultar por una solución para organizar las rutas y cuadrillas de mi negocio.",
   },
@@ -463,29 +471,31 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     slug: "truckstock-lite",
     name: "TruckStock Lite",
     tagline: "Inventario Móvil de Repuestos para Talleres y Flotas",
-    statusLabel: "CONCEPTO DE SOLUCIÓN",
+    oneLineProblem: "Controlá repuestos y materiales asignados a cada vehículo para evitar faltantes en obra.",
+    targetUserShort: "Instaladores, talleres y service en campo",
+    statusLabel: "CONCEPTO / PERSONALIZABLE",
     badgeType: "concept",
     commercialClassification: ["PORTFOLIO_SOLUTION", "CUSTOM_DEVELOPMENT_LEAD"],
     radarSlug: "truck_inventory-gestionar_piezas",
     targetUser: "Talleres mecánicos, técnicos de service oficial, instaladores y flotas ligeras",
     headline: "Control de repuestos y herramientas en el vehículo sin perder tiempo buscando piezas",
     subheadline:
-      "Una solución ligera para saber con exactitud qué insumos y repuestos tiene cada camioneta o puesto de trabajo, alertar cuando un stock crítico se agota y registrar consumos en 1 segundo.",
+      "Una herramienta ligera para saber qué insumos tiene cada camioneta, alertar cuando un stock crítico se agota y registrar consumos en 1 segundo.",
     problem: {
       statement:
-        "Técnicos y mecánicos salen a obra o atienden en la calle sin saber qué piezas tienen arriba del vehículo. Cuando falta una pieza clave, deben frenar el trabajo y viajar a comprarla, perdiendo 2 horas de mano de obra.",
+        "Técnicos y mecánicos salen a obra sin saber qué piezas tienen arriba del vehículo. Cuando falta una pieza clave, deben frenar el trabajo y viajar a comprarla, perdiendo horas productivas.",
       painPoints: [
-        "Viajes dobles y paradas improductivas en ferreterías o casas de repuestos.",
-        "Piezas caras perdidas o duplicadas en el fondo de la camioneta sin que nadie lo sepa.",
-        "Falta de descuento automático de repuestos consumidos en las órdenes de trabajo.",
-        "Sistemas de stock tradicionales que nadie usa porque son complicados y lentos.",
+        "Viajes dobles y paradas improductivas en casas de repuestos.",
+        "Piezas caras perdidas o duplicadas en el fondo de la camioneta.",
+        "Falta de descuento automático de repuestos consumidos en los trabajos.",
+        "Sistemas de stock tradicionales que nadie usa por ser complicados y lentos.",
       ],
     },
     solutionConcept: {
       summary:
-        "Gestión de inventario pensada para el vehículo: catálogo de piezas frecuentes, lectura rápida de código de barra o QR con la cámara del celular, marcas de stock mínimo y lista de reposición para el depósito central.",
+        "Gestión de inventario pensada para el vehículo: catálogo de piezas frecuentes, lectura rápida de código de barras o QR con la cámara del celular, marcas de stock mínimo y lista de reposición.",
       differentiator:
-        "Sin la sobrecarga de un ERP contable pesado: interfaz minimalista de alta velocidad pensada para registrar entradas y salidas con la punta del dedo.",
+        "Sin la sobrecarga de un software contable pesado: interfaz minimalista de alta velocidad pensada para registrar entradas y salidas con la punta del dedo.",
     },
     workflow: [
       {
@@ -549,8 +559,8 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
     ],
     features: [
       {
-        title: "Lector QR y código de barras nativo",
-        description: "Usa la cámara del teléfono para escanear repuestos sin hardware adicional.",
+        title: "Lector QR y código de barras con la cámara",
+        description: "Usa la cámara del teléfono para escanear repuestos sin dispositivos adicionales.",
       },
       {
         title: "Niveles de stock mínimo y óptimo",
@@ -571,12 +581,12 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
         scenario: "Control de filtros, correas, aceites y bujías en la camioneta de auxilio en calle.",
       },
       {
-        target: "Técnicos de Refrigeración y Calderas",
-        scenario: "Válvulas, termocuplas, presostatos y capacitores con control de stock crítico antes de ir a obra.",
+        target: "Técnicos de Climatización y Calderas",
+        scenario: "Válvulas, termocuplas y capacitores con control de stock crítico antes de ir a obra.",
       },
       {
         target: "Flotas de Mantenimiento Edilicio",
-        scenario: "Control de luminarias, balastos, canillas y llaves térmicas repartidas en 4 camionetas de cuadrilla.",
+        scenario: "Control de luminarias, balastos y llaves térmicas repartidas en las camionetas.",
       },
     ],
     customizationOptions: [
@@ -584,9 +594,9 @@ export const PORTFOLIO_SOLUTIONS: PortfolioSolution[] = [
       "Asociación de costos unitarios para calcular el costo de materiales por trabajo.",
       "Integración con proveedores para generar órdenes de compra directas.",
     ],
-    techStack: ["React / Next.js", "TypeScript", "BarCode Detection API", "Tailwind CSS", "Node.js API"],
+    techStack: ["Next.js / React", "Lector de código con cámara", "Base de datos sincronizada", "Panel de control central"],
     accentColor: "amber",
-    ctaText: "Consultar control de stock móvil",
+    ctaText: "Quiero una solución así",
     whatsappMessage:
       "Hola Valentín, vi el concepto de TruckStock Lite en tu portfolio y quiero consultar por una aplicación para controlar el stock de piezas y repuestos de mis vehículos.",
   },

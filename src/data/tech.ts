@@ -1,64 +1,44 @@
 /**
- * Verified technologies and operational stack.
- * Presented as real tools used to build, integrate, and maintain solutions.
- * No percentage bars, no skill rankings, no vanity metrics.
+ * Verified technologies and operational capabilities (Phase 16).
+ * Grouped cleanly by capability instead of giant unorganized lists.
  */
 
-export interface TechCategory {
+export interface TechCapabilityCategory {
   category: string;
   badge: string;
   description: string;
-  technologies: {
-    name: string;
-    description: string;
-  }[];
+  technologies: string[];
 }
 
-export const techCapabilities: TechCategory[] = [
+export const techCapabilities: TechCapabilityCategory[] = [
   {
-    category: "Backend y Servidores",
+    category: "Frontend",
+    badge: "Interfaces & Web",
+    description: "Aplicaciones web rápidas, adaptables a celulares y diseñadas para operar con agilidad.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    category: "Backend",
     badge: "Lógica & APIs",
-    description: "Desarrollo de servicios robustos, lógica de negocio, validaciones y procesamiento de datos.",
-    technologies: [
-      { name: "Node.js", description: "Entorno de ejecución de alta velocidad para servicios y APIs" },
-      { name: "NestJS", description: "Framework modular TypeScript para arquitecturas empresariales" },
-      { name: "Python", description: "Procesamiento de datos, automatizaciones y scripting avanzado" },
-      { name: ".NET", description: "Desarrollo de servicios robustos y sistemas corporativos" },
-      { name: "JavaScript", description: "Lógica de servidor moderna, asincrónica y escalable" },
-    ],
+    description: "Servicios estables, APIs seguras y procesamiento confiable de la lógica de negocio.",
+    technologies: ["Node.js", "NestJS", "Python", ".NET"],
   },
   {
-    category: "Frontend e Interfaces",
-    badge: "Experiencia & Rapidez",
-    description: "Interfaces web ágiles, accesibles, pensadas para celulares y con foco en conversión.",
-    technologies: [
-      { name: "Next.js", description: "Framework React con optimización de carga y renderizado rápido" },
-      { name: "React", description: "Construcción de interfaces dinámicas y componentes interactivos" },
-      { name: "TypeScript", description: "Tipado estricto para código libre de errores en producción" },
-      { name: "Angular", description: "Desarrollo y mantenimiento de plataformas empresariales" },
-      { name: "JavaScript Vanilla", description: "Control nativo del navegador sin dependencias innecesarias" },
-    ],
+    category: "Data",
+    badge: "Persistencia & Bases de Datos",
+    description: "Modelado ordenado, consistencia transaccional y consultas optimizadas para tu negocio.",
+    technologies: ["PostgreSQL", "MySQL", "Supabase", "Redis"],
   },
   {
-    category: "Bases de Datos y Persistencia",
-    badge: "Consistencia de Datos",
-    description: "Almacenamiento ordenado, consultas optimizadas e integridad de la información comercial.",
-    technologies: [
-      { name: "PostgreSQL", description: "Base de datos relacional de nivel bancario para sistemas críticos" },
-      { name: "MySQL", description: "Almacenamiento relacional extendido para portales y catálogos" },
-      { name: "MongoDB", description: "Persistencia documental flexible para payloads dinámicos" },
-    ],
+    category: "Infraestructura",
+    badge: "Estabilidad & Despliegue",
+    description: "Puesta en producción segura, servidores confiables y certificados SSL automáticos.",
+    technologies: ["Linux", "Docker", "Nginx", "Cloudflare"],
   },
   {
-    category: "Infraestructura e Integración",
-    badge: "Estabilidad 24/7",
-    description: "Conectividad entre plataformas, despliegue seguro y puesta en marcha en producción.",
-    technologies: [
-      { name: "APIs REST", description: "Contratos de comunicación e integración entre plataformas" },
-      { name: "Docker", description: "Contenedores para despliegues reproducibles y aislados" },
-      { name: "Nginx", description: "Servidor web, proxy inverso y certificados de seguridad SSL" },
-      { name: "Git", description: "Control de versiones profesional y colaboración de código" },
-      { name: "Integraciones", description: "Conexión con ERPs, pasarelas de pago y servicios externos" },
-    ],
+    category: "IA & Automatización",
+    badge: "Agilidad Operativa",
+    description: "Modelos de lenguaje sobre datos propios, procesamiento de archivos y tareas desatendidas.",
+    technologies: ["OpenAI API", "Anthropic", "Agentes", "Webhooks & Cron"],
   },
 ];

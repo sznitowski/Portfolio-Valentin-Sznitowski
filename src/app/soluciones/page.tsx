@@ -114,16 +114,13 @@ export default function SolucionesPage() {
               return (
                 <div
                   key={sol.id}
-                  className={`group p-6 sm:p-8 rounded-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] transition-all flex flex-col justify-between space-y-6 ${borderAccent}`}
+                  className={`group p-6 sm:p-7 rounded-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] transition-all flex flex-col justify-between space-y-5 ${borderAccent}`}
                 >
-                  <div className="space-y-4">
+                  <div className="space-y-3.5">
                     {/* Header Badges */}
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className={`text-[10px] font-mono-tech font-bold uppercase px-2.5 py-0.5 rounded-full border ${badgeAccent}`}>
                         {sol.statusLabel}
-                      </span>
-                      <span className="text-[10px] font-mono-tech text-[var(--text-muted)]">
-                        {sol.targetUser.split(",")[0]}
                       </span>
                     </div>
 
@@ -137,29 +134,24 @@ export default function SolucionesPage() {
                       </div>
                     </div>
 
-                    {/* Problem statement */}
-                    <div className="p-3.5 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-subtle)] space-y-1">
-                      <span className="text-[10px] font-mono-tech text-rose-400 font-bold uppercase block">
-                        Problema que resuelve:
-                      </span>
-                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                        {sol.problem.statement}
-                      </p>
-                    </div>
+                    {/* One-line business problem (15-35 palabras) */}
+                    <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                      &quot;{sol.oneLineProblem}&quot;
+                    </p>
 
                     {/* Target user */}
-                    <div className="text-xs text-[var(--text-secondary)]">
-                      <strong className="text-[var(--text-primary)] font-mono-tech text-[11px] block mb-1">
-                        Para quién está pensado:
-                      </strong>
-                      <span className="text-slate-400">{sol.targetUser}</span>
+                    <div className="text-xs text-[var(--text-secondary)] pt-1">
+                      <span className="text-[var(--text-primary)] font-mono-tech text-[11px] font-semibold mr-1.5">
+                        Para:
+                      </span>
+                      <span className="text-slate-400">{sol.targetUserShort}</span>
                     </div>
                   </div>
 
                   {/* CTA link to detailed landing */}
                   <div className="pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between">
                     <span className="text-[11px] font-mono-tech text-[var(--text-muted)]">
-                      Flujo en 5 pasos · Mockup interactivo
+                      Demostración interactiva
                     </span>
                     <Link
                       href={`/soluciones/${sol.slug}?source=solutions_index`}

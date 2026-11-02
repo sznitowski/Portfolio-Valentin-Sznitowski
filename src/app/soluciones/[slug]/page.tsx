@@ -8,8 +8,6 @@ import { SolutionHero } from "@/components/solutions/SolutionHero";
 import { SolutionWorkflow } from "@/components/solutions/SolutionWorkflow";
 import { SolutionMockup } from "@/components/solutions/SolutionMockup";
 import { SolutionBenefits } from "@/components/solutions/SolutionBenefits";
-import { SolutionFeatures } from "@/components/solutions/SolutionFeatures";
-import { SolutionUseCases } from "@/components/solutions/SolutionUseCases";
 import { SolutionCustomization } from "@/components/solutions/SolutionCustomization";
 import { SolutionDisclaimer } from "@/components/solutions/SolutionDisclaimer";
 import { SolutionCTA } from "@/components/solutions/SolutionCTA";
@@ -70,24 +68,24 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
       <SolutionViewTracker solutionSlug={solution.slug} />
       <Container>
         <div className="space-y-16 max-w-5xl mx-auto">
-          {/* 1. Hero Section */}
+          {/* 1. Hero */}
           <SolutionHero solution={solution} />
 
-          {/* 2. Problem vs Solution Detailed Grid */}
+          {/* 2. Problem & Solution Concept */}
           <section className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Problem */}
               <div className="p-6 rounded-2xl bg-rose-950/20 border border-rose-500/25 space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono-tech font-bold uppercase tracking-wider text-rose-400">
                   <AlertCircle className="w-4 h-4" />
-                  <span>El Problema Operativo Real</span>
+                  <span>El Problema Operativo</span>
                 </div>
                 <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                   {solution.problem.statement}
                 </p>
                 <div className="space-y-2 pt-2 border-t border-rose-500/20">
                   <span className="text-[10px] font-mono-tech uppercase text-rose-300 font-bold block">
-                    Fricciones identificadas:
+                    Fricciones habituales:
                   </span>
                   <ul className="space-y-1.5 text-xs text-rose-200/90">
                     {solution.problem.painPoints.map((pp, idx) => (
@@ -104,14 +102,14 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
               <div className="p-6 rounded-2xl bg-emerald-950/20 border border-emerald-500/25 space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono-tech font-bold uppercase tracking-wider text-emerald-400">
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>La Propuesta de Solución</span>
+                  <span>Cómo lo resolvemos</span>
                 </div>
                 <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                   {solution.solutionConcept.summary}
                 </p>
                 <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-200 leading-relaxed">
                   <strong className="block text-[10px] font-mono-tech text-emerald-400 uppercase mb-0.5">
-                    Diferenciador Clave:
+                    Diferenciador para tu empresa:
                   </strong>
                   {solution.solutionConcept.differentiator}
                 </div>
@@ -119,32 +117,22 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
             </div>
           </section>
 
-          {/* 3. Visual Workflow Step-by-Step */}
-          <section>
+          {/* 3. How it would work (Visual Workflow) */}
+          <section id="flujo-y-mockup">
             <SolutionWorkflow workflow={solution.workflow} accentColor={solution.accentColor} />
           </section>
 
-          {/* 4. Interactive Visual UI Mockup */}
-          <section>
-            <SolutionMockup solution={solution} />
-          </section>
-
-          {/* 5. Business Benefits & ROI */}
+          {/* 4. Main benefits */}
           <section>
             <SolutionBenefits benefits={solution.benefits} accentColor={solution.accentColor} />
           </section>
 
-          {/* 6. Functional Capabilities */}
+          {/* 5. Interactive concept/demo */}
           <section>
-            <SolutionFeatures features={solution.features} accentColor={solution.accentColor} />
+            <SolutionMockup solution={solution} />
           </section>
 
-          {/* 7. Industry Specific Use Cases */}
-          <section>
-            <SolutionUseCases useCases={solution.useCases} accentColor={solution.accentColor} />
-          </section>
-
-          {/* 8. Customization & Architecture */}
+          {/* 6. Adaptation options */}
           <section>
             <SolutionCustomization
               options={solution.customizationOptions}
@@ -153,12 +141,12 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
             />
           </section>
 
-          {/* 9. Transparency Disclaimer */}
+          {/* Transparency Disclaimer */}
           <section>
             <SolutionDisclaimer />
           </section>
 
-          {/* 10. Commercial CTA */}
+          {/* 7. CTA */}
           <section>
             <SolutionCTA solution={solution} />
           </section>
