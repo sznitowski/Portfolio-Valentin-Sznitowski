@@ -209,7 +209,7 @@ export default async function IdeaRadarDashboardPage() {
               <thead>
                 <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)]/50 text-[var(--text-muted)] font-mono-tech uppercase text-[10px]">
                   <th className="py-3 px-4">Solución</th>
-                  <th className="py-3 px-3 text-center">Vistas Únicas</th>
+                  <th className="py-3 px-3 text-center">Vistas</th>
                   <th className="py-3 px-3 text-center">Clics a Contacto</th>
                   <th className="py-3 px-3 text-center">CTR Comercial</th>
                   <th className="py-3 px-4 text-right">Ruta Pública</th>

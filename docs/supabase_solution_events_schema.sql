@@ -21,18 +21,27 @@ CREATE INDEX IF NOT EXISTS idx_solution_events_created_at ON public.solution_eve
 CREATE INDEX IF NOT EXISTS idx_solution_events_slug ON public.solution_events (solution_slug);
 CREATE INDEX IF NOT EXISTS idx_solution_events_type ON public.solution_events (event_type);
 
--- 3. Row Level Security & Anon Grants (Strict Privacy: Insert Only, No Public Select)
+-- 3. Row Level Security & Anon Grants
 ALTER TABLE public.solution_events ENABLE ROW LEVEL SECURITY;
 
-GRANT INSERT ON public.solution_events TO anon;
-REVOKE SELECT, UPDATE, DELETE ON public.solution_events FROM anon;
+GRANT ALL ON public.solution_events TO anon;
+GRANT ALL ON public.solution_events TO authenticated;
 
+-- Allow anon to INSERT
 DROP POLICY IF EXISTS "allow anon insert solution events" ON public.solution_events;
 CREATE POLICY "allow anon insert solution events"
   ON public.solution_events
   FOR INSERT
   TO anon
   WITH CHECK (true);
+
+-- Deny anon direct SELECT (RLS blocks raw event scraping, returns 0 rows)
+DROP POLICY IF EXISTS "deny anon select solution events" ON public.solution_events;
+CREATE POLICY "deny anon select solution events"
+  ON public.solution_events
+  FOR SELECT
+  TO anon
+  USING (false);
 
 -- 4. Secure Aggregation RPC (Returns Commercial Totals Excluding internal_test)
 CREATE OR REPLACE FUNCTION public.get_commercial_signals_summary()
@@ -76,3 +85,7 @@ END;
 $$;
 
 GRANT EXECUTE ON FUNCTION public.get_commercial_signals_summary() TO anon;
+GRANT EXECUTE ON FUNCTION public.get_commercial_signals_summary() TO authenticated;
+
+-- 5. Force PostgREST schema cache reload immediately
+NOTIFY pgrst, 'reload schema';
